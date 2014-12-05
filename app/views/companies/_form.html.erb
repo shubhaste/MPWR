@@ -1,0 +1,72 @@
+<%= semantic_form_for @company, :html => { :multipart => true,:class => "form-horizontal" }  do |f| %>
+  <% if @company.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= "#{pluralize(@company.errors.count, "error")} prohibited this company from being saved:" %>
+      </h2>
+      <ul>
+        <% @company.errors.full_messages.each do |msg| %>
+          <li>
+            <%= msg %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.inputs do %>
+    <div class="row form-group">
+          <div class="col-md-2 col-md-offset-2">
+                <label  for="textinput">Business Name</label> 
+          </div>
+           <div class="col-md-4">
+                  <%= f.text_field  :name,:class => "form-control input-md" %>
+          </div>
+    </div>
+    <div class="row form-group">
+          <div class="col-md-2 col-md-offset-2">
+              <label class="col-md-1" for="textinput">Address</label>  
+          </div>
+           <div class="col-md-4">
+                 <%= f.text_area :address, :as => :text, :input_html => { :rows => 4, :cols => 20 },:class => "form-control input-md" %>
+          </div>
+    </div>
+  <div class="row">
+     <legend> Business Owners Details</legend>
+      <%= f.semantic_fields_for :owners do |owner| %>
+        <%= render 'owner_fields', :f => owner %>
+      <% end %>
+      <div class="row form-group">
+           <div class="col-md-2 col-md-offset-2">
+             <%= link_to_add_association 'Add Another Business Owner', f, :owners, :class=>"btn btn-default"  %>
+            </div>
+      </div>
+    </div>
+     <div class="row">
+      <legend>Common required documents intake:</legend>
+        <%= f.semantic_fields_for :attachments do |attachment| %>
+          <%= render 'attachment_fields', :f => attachment %>
+        <% end %>
+            <div class="row form-group">
+              <div class="col-md-2 col-md-offset-2">
+                <%= link_to_add_association 'Add Attachment', f, :attachments,:class=>"btn btn-default" %>
+              </div>
+             </div>  
+      </div>
+        <div class="row">
+          <div class="col-md-2  col-md-offset-6 links">   
+            &nbsp;
+          </div>
+        </div>
+         <div class="row">  
+          <div class="col-md-2  col-md-offset-4">   
+         <!-- <%= f.submit  do %>
+            <%= f.commit_button  :label => "Save", :button_html => { :disable_with => 'Please wait ...'} %>
+          <% end %>-->
+              <input name="commit" class="btn btn-default" type="submit" value="Update Business Information Form">
+            </div>
+          </div> 
+ <% end %>
+<% end %>
+         
+

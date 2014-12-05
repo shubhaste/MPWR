@@ -1,0 +1,106 @@
+<!--<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @company.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @company.address %>
+</p>
+-->
+ <div class="container">
+  <div class="row clearfix">
+    <div>
+    <legend>Business Information</legend>
+ <div class="row">
+          <div class="col-sm-2 col-md-offset-2">
+                <label  for="textinput">Business Name</label> 
+          </div>
+           <div class="col-md-3">
+           	  <%= @company.name %>
+          </div>
+          <div class="col-md-1">
+                <label  for="textinput">Address</label> 
+          </div>
+           <div class="col-md-3">
+             <%= @company.address %>
+          </div>
+    </div>
+ <div>
+    <legend>Business Owners</legend>
+ <% @company.owners.each do |owner| %>
+  <div class="row">
+          <div class="col-md-2 col-md-offset-2">
+                <label  for="textinput">Owner Name</label> 
+          </div>
+           <div class="col-md-3">
+            <%= owner.name %>
+          </div>
+          <div class="col-md-1">
+                <label  for="textinput">Nationality</label> 
+          </div>
+           <div class="col-md-3">
+             <%= owner.nationality %>
+          </div>
+    </div>
+     <div class="row">
+          <div class="col-md-2 col-md-offset-2">
+                <label  for="textinput">Gender</label> 
+          </div>
+           <div class="col-md-3">
+            <%= owner.gender %>
+          </div>
+          <div class="col-md-1">
+                <label  for="textinput">email</label> 
+          </div>
+           <div class="col-md-2">
+             <%= owner.email %>
+          </div>
+    </div>
+      <div class="row">
+          <div class="col-md-2 col-md-offset-2">
+                <label  for="textinput">Passport Attachment</label> 
+          </div>
+           <div class="col-md-3">
+            <a href="<%=owner.passport_attachment.url(:large) %>" rel="hermitage">
+              <%= image_tag owner.passport_attachment.url(:thumb) %>
+            </a>
+          </div>
+          <div class="col-md-1">
+                <label  for="textinput">National Attachment</label> 
+          </div>
+           <div class="col-md-3">
+             <a href="<%=owner.national_attachment.url(:large)%>" rel="hermitage">
+              <%= image_tag owner.national_attachment.url(:thumb) %>
+            </a>
+          </div>
+    </div>
+     <div class="row">
+        <div class="col-md-2 col-md-offset-2">&nbsp;
+          </div>
+     </div>
+<%end%>
+</div>
+<div>
+    <legend class="scheduler-border">Attachments</legend>
+      <% @company.attachments.each do |attachment| %>
+          <div class="row">
+            <div class="col-md-2 col-md-offset-2">
+                  <label  for="textinput"><%= attachment.description%></label> 
+            </div>
+             <div class="col-md-3">
+               <a href="<%=attachment.attachment.url(:large)%>" rel="hermitage">
+                 <%= image_tag attachment.attachment.url(:thumb) %>
+                </a>
+            </div>
+          </div>
+          <%end%>
+    </div>
+</div>
+    <%= link_to 'Edit', edit_company_path(@company) %> |
+<%= link_to 'Back', companies_path %>
+    </div>
+   </div>
+</div>

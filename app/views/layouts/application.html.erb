@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Publicworkandreconstructionoffice</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="container">
+   <div class="row">
+     <div class="col-md-12 col-md-offset-11">
+    <% if user_signed_in? %>
+    <%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %>
+  <% else %>
+    <%= link_to 'Sign in', new_user_session_path %>
+    <!--<li><%= link_to 'Sign up', new_user_registration_path %></li>-->
+  <% end %>
+   </div>
+   <div class="row">
+   </div>
+  </div>
+  <div class="row">
+   </div>	
+   <div class="col-md-4"><img src="/assets/title_arabic.png"></div>
+   <div class="col-md-4 text-center"><img src="/assets/logo.png"></div>
+   <div class="col-md-4"><img src="/assets/title_english.png"></div>
+  <div class="text-center col-md-12">
+    <h1>Somali Federal Republic</h1>
+    <p class="lead">Ministry of Public Works & Reconstruction office of the Minister</p>
+  </div>
+</div>
+  <!-- <p class="notice"><%= notice %></p>
+     <p class="alert"><%= alert %></p>-->
+
+ <main role="main">    
+<%= yield %>
+</main>
+<!--<% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+<% end %>-->
+</body>
+</html>

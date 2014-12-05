@@ -1,0 +1,14 @@
+<div class="nested-fields">
+  <%= f.inputs do %>
+    <div class="form-group">
+    <label class="col-md-2" for="textinput">National ID</label>  
+      <div class="col-md-3">
+          <%= f.text_field  :national_id,:class => "form-control input-md" %>
+      </div>
+      <div class="links col-md-2">
+      <%= label_tag '' %>
+      <%= link_to_remove_association "remove National ID", f,:class=>"btn btn-default" %>
+    </div>
+	</div>
+  <% end %>
+</div>
