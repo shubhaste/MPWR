@@ -31,25 +31,25 @@
                  <%= f.text_area :address, :as => :text, :input_html => { :rows => 4, :cols => 20 },:class => "form-control input-md" %>
           </div>
     </div>
-  <div class="row">
+  <div class="">
      <legend> Business Owners Details</legend>
       <%= f.semantic_fields_for :owners do |owner| %>
         <%= render 'owner_fields', :f => owner %>
       <% end %>
       <div class="row form-group">
            <div class="col-md-2 col-md-offset-2">
-             <%= link_to_add_association 'Add Another Business Owner', f, :owners, :class=>"btn btn-default"  %>
+             <%= link_to_add_association 'Add Another Business Owner', f, :owners, :class=>"btn btn-info"  %>
             </div>
       </div>
     </div>
-     <div class="row">
+     <div class="">
       <legend>Common required documents intake:</legend>
         <%= f.semantic_fields_for :attachments do |attachment| %>
           <%= render 'attachment_fields', :f => attachment %>
         <% end %>
             <div class="row form-group">
               <div class="col-md-2 col-md-offset-2">
-                <%= link_to_add_association 'Add Attachment', f, :attachments,:class=>"btn btn-default" %>
+                <%= link_to_add_association 'Add Attachment', f, :attachments,:class=>"btn btn-info" %>
               </div>
              </div>  
       </div>
@@ -63,7 +63,7 @@
          <!-- <%= f.submit  do %>
             <%= f.commit_button  :label => "Save", :button_html => { :disable_with => 'Please wait ...'} %>
           <% end %>-->
-              <input name="commit" class="btn btn-default" type="submit" value="Update Business Information Form">
+              <input name="commit" class="btn btn-success" type="submit" value="Update Business Information Form">
             </div>
           </div> 
  <% end %>

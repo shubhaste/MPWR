@@ -1,7 +1,8 @@
  <div class="container">
   <div class="row clearfix">
-    <div>
-    <legend>Business Application Form</legend>
+    <div>    
+    <div class="panel panel-info">
+            <div class="panel-heading"><h5><strong>Business Application Form</strong></h5></div>
   <table class="table table-striped table-bordered table-condensed">
   <thead>
     <tr>
@@ -17,27 +18,27 @@
           <td class="col-md-4"><%= company.address %></td>
           <td class="col-md-2">
           <% if can? :read, company %>
-           <%= link_to(company, class: "btn btn-default") do %>
+           <%= link_to(company, class: "btn btn-info") do %>
               View
             <% end %>
           <% end %>
           <% if can? :update, company %>
-           <%= link_to(edit_company_path(company), class: "btn btn-default") do %>
+           <%= link_to(edit_company_path(company), class: "btn btn-info") do %>
               Edit
             <% end %>
           <% end %>
           <% if can? :destroy, company %>
-            <%= link_to(company,method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default") do %>
+            <%= link_to(company,method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-info") do %>
               Delete
             <% end %>
             <% end %>
           <% if can? :approve, company %>
-             <%= link_to(company,method: :approve, data: { confirm: 'Are you sure?' }, class: "btn btn-default") do %>
+             <%= link_to(company,method: :approve, data: { confirm: 'Are you sure?' }, class: "btn btn-info") do %>
               Approve
             <% end %>
           <% end %>  
           <% if can? :reject, company %>
-             <%= link_to(company,method: :reject, data: { confirm: 'Are you sure?' }, class: "btn btn-default") do %>
+             <%= link_to(company,method: :reject, data: { confirm: 'Are you sure?' }, class: "btn btn-info") do %>
               Reject
             <% end %>
           <% end %> 
@@ -46,7 +47,8 @@
       <% end %>
     </tbody>
   </table>
-        <%= link_to(new_company_path, class: "btn btn-default") do %>
+  </div>
+        <%= link_to(new_company_path, class: "btn btn-success") do %>
             New Business Application Form
           <% end %>
 
