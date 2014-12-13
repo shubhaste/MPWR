@@ -61,8 +61,11 @@ Rails.application.routes.draw do
   #   end
 
    root to: "home#index"
-
   
   resources :users
+
+resources :companies do
+   resources :certificates
+ end
 
 end
