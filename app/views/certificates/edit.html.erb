@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row clearfix">
+    <div>
+    <div class="panel panel-info">
+	<div class="panel-heading"><h5><strong>Edit Certficate:    <%= @company.name %> </strong></h5></div>
+		<%= render 'form' %>
+		</div>
+		   <%= link_to(company_certificates_path, class: "btn btn-success") do %>
+Back
+<% end %>
+<%= link_to(company_certificate_path, class: "btn btn-success") do %>
+Show
+<% end %>
+    </div>
+   </div>
+
+</div>
+
+
+

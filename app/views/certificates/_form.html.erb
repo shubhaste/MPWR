@@ -1,0 +1,53 @@
+<%= form_for [@company, @certificate]  do |f| %>
+
+  <% if @certificate.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@certificate.errors.count, "error") %> prohibited this certificate from being saved:</h2>
+
+      <ul>
+      <% @certificate.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row form-group">
+        <div class="col-md-2 col-md-offset-2">
+              <label  for="textinput">License Activities</label> 
+        </div>
+         <div class="col-md-4">
+                <%= f.text_field  :description,:class => "form-control input-md" %>
+        </div>
+    </div>
+
+  <div class="row form-group">
+        <div class="col-md-2 col-md-offset-2">
+              <label  for="textinput">Certficate Issue Date</label> 
+        </div>
+         <div class="col-md-4">
+                <%= f.date_select  :cert_issue_date,:class => "form-control input-md" %>
+        </div>
+    </div>
+<div class="row form-group">
+        <div class="col-md-2 col-md-offset-2">
+              <label  for="textinput">Certficate Effective Date</label> 
+        </div>
+         <div class="col-md-4">
+                <%= f.date_select  :cert_eff_date,:class => "form-control input-md" %>
+        </div>
+    </div>
+   <div class="row form-group">
+        <div class="col-md-2 col-md-offset-2">
+              <label  for="textinput">Certficate Expire Date</label> 
+        </div>
+         <div class="col-md-4">
+                <%= f.date_select  :cert_term_date,:class => "form-control input-md" %>
+        </div>
+    </div> 
+    <div class="row col-md-offset-4">
+  <div class="actions">
+     <input name="commit" class="btn btn-success" type="submit" value="Update Certificate">
+  </div>
+</div>
+<% end %>

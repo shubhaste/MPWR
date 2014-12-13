@@ -1,0 +1,50 @@
+ <div class="container">
+  <div class="row clearfix">
+    <div class="panel panel-info">
+            <div class="panel-heading"><h5><strong>Certficate Information</strong></h5></div>
+ 	<div class="row">
+          <div class="col-sm-2 col-md-offset-2">
+                <label  for="textinput">Company Name:</label> 
+          </div>
+           <div class="col-md-3">
+              <%= @company.name %>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-2 col-md-offset-2">
+                <label  for="textinput">License Actvities:</label> 
+          </div>
+           <div class="col-md-3">
+              <%= @certificate.description %>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-2 col-md-offset-2">
+                <label  for="textinput">Certficate Issue Date:</label> 
+          </div>
+           <div class="col-md-3">
+               <%= @certificate.cert_issue_date %>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-2 col-md-offset-2">
+                <label  for="textinput">Certficate Effective Date:</label> 
+          </div>
+           <div class="col-md-3">
+               <%= @certificate.cert_eff_date %>
+          </div>
+      </div>
+       <div class="row">
+          <div class="col-sm-2 col-md-offset-2">
+                <label  for="textinput">Certficate Expire Date:</label> 
+          </div>
+           <div class="col-md-3">
+               <%= @certificate.cert_term_date %>
+          </div>
+      </div>
+  	<div>
+  <%= link_to(company_certificates_path, class: "btn btn-success") do %>
+	Back
+	<% end %>
+ </div>	
+

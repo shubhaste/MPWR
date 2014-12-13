@@ -1,0 +1,47 @@
+ <div class="container">
+  <div class="row clearfix">
+    <div>    
+    <div class="panel panel-info">
+            <div class="panel-heading"><h5><strong>List Of Certficates : <%= @company.name %></strong></h5></div>
+  <table class="table table-striped table-bordered table-condensed">
+  <thead>
+    <tr>
+      <th>License Activities</th>
+      <th>Issue Date</th>
+      <th>Effective Date</th>
+      <th>Expire Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+    <tbody>
+      <% @certificates.each do |certificate| %>
+        <tr>
+          <td class="col-md-2"><%= certificate.description %></td>
+          <td class="col-md-2"><%= certificate.cert_issue_date %></td>
+           <td class="col-md-2"><%= certificate.cert_eff_date %></td>
+            <td class="col-md-2"><%= certificate.cert_term_date %></td>
+          <td class="col-md-2">
+           <%= link_to(company_certificate_path(@company,certificate), class: "btn btn-info") do %>
+              View
+          <% end %>
+           <%= link_to(edit_company_certificate_path(@company,certificate), class: "btn btn-info") do %>
+              Edit
+          <% end %>
+          <%= link_to(company_certificate_path(@company,certificate,:pdf ), class: "btn btn-info") do %>
+              Download
+          <% end %>
+         </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+         <%= link_to(companies_path, class: "btn btn-success") do %>
+            Back
+          <% end %>
+          <%= link_to(new_company_certificate_path, class: "btn btn-success") do %>
+            Create New Certficate
+          <% end %>
+    </div>
+   </div>
+</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141128165351) do
+ActiveRecord::Schema.define(version: 20141213090157) do
 
   create_table "attachments", force: true do |t|
     t.string   "description"
@@ -20,6 +20,17 @@ ActiveRecord::Schema.define(version: 20141128165351) do
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "certificates", force: true do |t|
+    t.string   "description"
+    t.datetime "cert_issue_date", null: false
+    t.datetime "cert_eff_date",   null: false
+    t.datetime "cert_term_date",  null: false
+    t.integer  "user_id",         null: false
+    t.integer  "company_id",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -68,19 +79,6 @@ ActiveRecord::Schema.define(version: 20141128165351) do
     t.string   "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
-    t.string   "type"
-    t.string   "country_code"
-    t.string   "mother_name"
-    t.string   "nationality"
-    t.string   "occupation"
-    t.string   "gender"
-    t.string   "place_of_birth"
-    t.datetime "birth_date"
-    t.datetime "issue_date"
-    t.string   "place_of_issue"
-    t.string   "issuing_authority"
-    t.datetime "expiry_date"
   end
 
   create_table "roles", force: true do |t|

@@ -12,7 +12,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
- gem 'therubyracer',  platforms: :ruby
+# gem 'therubyracer',  platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -43,8 +43,8 @@ gem 'cancancan', '~> 1.9.2'
 
 
 
-gem "haml"
-gem "haml-rails"
+#gem "haml"
+#gem "haml-rails"
 
 gem 'formtastic', '~> 3.1.1'
 gem "cocoon"
@@ -62,5 +62,5 @@ gem 'formtastic-bootstrap', '~> 3.0.0.rc.2'
 
 
 gem 'hermitage'
-gem 'rmagick', '2.13.2'
 
+gem 'prawn', '~> 1.3.0'
