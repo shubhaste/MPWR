@@ -21,6 +21,12 @@ class User < ActiveRecord::Base
     is_type?("minister")
   end
 
+  def self.current
+    Thread.current[:user]
+  end
+  def self.current=(user)
+    Thread.current[:user] = user
+  end
   private
 
   def is_type? type
