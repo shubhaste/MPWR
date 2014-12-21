@@ -1,62 +1,91 @@
- <div class="container">
-  <div class="row clearfix">
-    <div>    
-    <div class="panel panel-info">
-            <div class="panel-heading"><h5><strong>Business Application Form</strong></h5></div>
-  <table class="table table-striped table-bordered table-condensed">
-  <thead>
-    <tr>
-      <th>Business Name</th>
-      <th>Address</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-    <tbody>
-      <% @companies.each do |company| %>
-        <tr>
-          <td class="col-md-2"><%= company.name %></td>
-          <td class="col-md-4"><%= company.address %></td>
-          <td class="col-md-2">
-          <% if can? :read, company %>
-           <%= link_to(company, class: "btn btn-info") do %>
-              View
-            <% end %>
+<div class="row">
+      <div class="span12 padding5">
+        <div class="span3">
+          
+        <nav class="sidebar light">
+    <ul>
+        <li class="title">Admin Section</li>
+        <li class="stick">
+         <%= link_to(new_company_path) do %>
+           <i class="icon-new"></i> New Application Form
           <% end %>
-          <% if can? :update, company %>
-           <%= link_to(edit_company_path(company), class: "btn btn-info") do %>
-              Edit
-            <% end %>
-          <% end %>
-          <% if can? :destroy, company %>
-            <%= link_to(company,method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-info") do %>
-              Delete
-            <% end %>
-            <% end %>
-          <% if can? :approve, company %>
-             <%= link_to(company,method: :approve, data: { confirm: 'Are you sure?' }, class: "btn btn-info") do %>
-              Approve
-            <% end %>
-          <% end %>  
-          <% if can? :reject, company %>
-             <%= link_to(company,method: :reject, data: { confirm: 'Are you sure?' }, class: "btn btn-info") do %>
-              Reject
-            <% end %>
-          <% end %> 
-          </td>
-        <td class="col-md-2">
-          <%= link_to(company_certificates_path(company), class: "btn btn-info") do %>
-             View/Add Certificates
-            <% end %>
-        </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  </div>
-        <%= link_to(new_company_path, class: "btn btn-success") do %>
-            New Business Application Form
-          <% end %>
+        </li>
+        <li class="stick"><a href="#"><i class="icon-home"></i>Client Registration</a></li>
+        <li class="stick"><a href="#"><i class="icon-newspaper"></i>Expired Certificates</a></li>
+        <li class="stick"><a href="#"><i class="icon-enter"></i>Pending To Approve</a></li>
+    <li class="stick"><a href="#"><i class="icon-printer"></i>Print Actions</a></li>
+    <li class="stick"><a href="#"><i class="icon-user-3"></i>Customers Lookup</a></li>
+    </ul>
+</nav>
+          
+        </div>
+        <div class="span9">
+          <div class="panel">
+              <div class="panel-content">
+                <table class="table hovered">
+                        <thead>
+                        <tr>
+                            <th class="text-left">Business Name</th>
+                            <th class="text-left">Address</th>
+                             <th class="text-left">Status</th>
+                            <th colspan="4" class="text-center">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                         <% @companies.each do |company| %>  
+                        <tr>
+                            <td><%= company.name %></td>
+                            <td class="right"><%= company.address %></td>
+                             <td class="right">
+                               <% if company.certificates.first.present? %>
+                               <% if !company.certificates.first.workflow_state.nil? %>
+                                   <%= company.certificates.first.workflow_state.gsub(/_/, " ") %>
+                                   <% else %>
+                                   License Does't not exist
+                                <% end %>
+                                <% else %>
+                                   License Does't not exist
+                               <% end %>
+                             </td>
+                            <td class="right">
+                            <% if can? :read, company %>
+                               <%= link_to(company) do %>
+                                  <button class="small info">View</button>
+                                <% end %>
+                              <% end %>
+                            </td>
+                            <td class="right">
+                              <% if can? :update, company %>
+                                <%= link_to(edit_company_path(company)) do %>
+                                  <button class="small default">Edit</button></td>
+                                <% end %>
+                              <% end %>
+                          <!--  <td class="right">
+                              <% if can? :destroy, company %>
+                                <%= link_to(company,method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-info") do %>
+                                <button class="small danger">Delete</button>
+                                <% end %>
+                              <% end %>
+                            </td>-->
+                            <td class="right">
+                              <%= link_to(company_certificates_path(company)) do %>
+                                <% if company.certificates.first.present? %>
+                                   <button class="small success">License</button>
+                                  <% else %> 
+                                    <button class="small warning">License</button>
+                                  <% end %>
+                              <% end %>
+                            </td>
+                          </tr>
+                         <% end %>
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
 
-    </div>
-   </div>
-</div>
+              </div>
+            </div>
+        </div>
+        </div>
+      </div>
+
+

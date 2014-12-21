@@ -1,5 +1,5 @@
 <%= semantic_form_for @company, :html => { :multipart => true,:class => "form-horizontal" }  do |f| %>
-  <% if @company.errors.any? %>
+<% if @company.errors.any? %>
     <div id="error_explanation">
       <h2>
         <%= "#{pluralize(@company.errors.count, "error")} prohibited this company from being saved:" %>
@@ -14,59 +14,50 @@
     </div>
   <% end %>
 
-  <%= f.inputs do %>
-    <div class="row form-group">
-          <div class="col-md-2 col-md-offset-2">
-                <label  for="textinput">Business Name</label> 
-          </div>
-           <div class="col-md-4">
-                  <%= f.text_field  :name,:class => "form-control input-md" %>
-          </div>
-    </div>
-    <div class="row form-group">
-          <div class="col-md-2 col-md-offset-2">
-              <label class="col-md-1" for="textinput">Address</label>  
-          </div>
-           <div class="col-md-4">
-                 <%= f.text_area :address, :as => :text, :input_html => { :rows => 4, :cols => 20 },:class => "form-control input-md" %>
-          </div>
-    </div>
-  <div class="">
-     <legend> Business Owners Details</legend>
+<fieldset>
+  <legend>New Business Information</legend>
+  <label>Business Name</label>
+  <div class="input-control text size4" data-role="input-control">
+    <%= f.text_field  :name,:placeholder=>"Enter Your Business Name" %>
+    <button class="btn-clear" tabindex="-1"></button>
+  </div>
+  <label>Address</label>
+  <div class="input-control textarea size4" data-role="input-control">
+     <%= f.text_area :address, :as => :text, :input_html => { :rows => 4, :cols => 20 },:placeholder=>"Enter Your Business Address" %>
+  </div>
+</fieldset>
+            
+  <fieldset>
+    <legend>Business Owner Details</legend>
+    <div>  
       <%= f.semantic_fields_for :owners do |owner| %>
         <%= render 'owner_fields', :f => owner %>
       <% end %>
-      <div class="row form-group">
-           <div class="col-md-2 col-md-offset-2">
-             <%= link_to_add_association 'Add Another Business Owner', f, :owners, :class=>"btn btn-info"  %>
-            </div>
-      </div>
+        <div> 
+      <%= link_to_add_association 'Add Another Business Owner', f, :owners, :class=>"info medium button"  %>
+        </div> 
     </div>
-     <div class="">
-      <legend>Common required documents intake:</legend>
-        <%= f.semantic_fields_for :attachments do |attachment| %>
-          <%= render 'attachment_fields', :f => attachment %>
-        <% end %>
-            <div class="row form-group">
-              <div class="col-md-2 col-md-offset-2">
-                <%= link_to_add_association 'Add Attachment', f, :attachments,:class=>"btn btn-info" %>
-              </div>
-             </div>  
-      </div>
-        <div class="row">
-          <div class="col-md-2  col-md-offset-6 links">   
-            &nbsp;
-          </div>
-        </div>
-         <div class="row">  
-          <div class="col-md-2  col-md-offset-4">   
-         <!-- <%= f.submit  do %>
-            <%= f.commit_button  :label => "Save", :button_html => { :disable_with => 'Please wait ...'} %>
-          <% end %>-->
-              <input name="commit" class="btn btn-success" type="submit" value="Update Business Information Form">
-            </div>
-          </div> 
- <% end %>
+  </fieldset>
+
+<div>
+  <fieldset>
+<legend>Common  Required Documents Intake</legend>
+ <div>  
+ <%= f.semantic_fields_for :attachments do |attachment| %>
+    <%= render 'attachment_fields', :f => attachment %>
+<% end %> 
+  <%= link_to_add_association 'Add Attachment', f, :attachments,:class=>"info medium button" %>
+ </div>  
+ </fieldset> 
+ </div> 
+<br/>
+<br/>
+  <input name="commit" class="success large" type="submit" value="Update Business Information Form">
+
+</fieldset>
+                
 <% end %>
+
+
          
 

@@ -1,6 +1,6 @@
 class CertificatesController < ApplicationController
-  before_action :set_certificate, only: [:show, :edit, :update, :destroy]
-  before_action :set_company, only: [:index, :new, :edit, :create, :show, :update, :destroy]
+  before_action :set_certificate, only: [:show, :edit, :update, :destroy,:director_reject,:director_accept,:minister_reject,:minister_accept]
+  before_action :set_company, only: [:index, :new, :edit, :create, :show, :update, :destroy,:director_reject,:director_accept,:minister_reject,:minister_accept]
   respond_to :html
 
   def index
@@ -47,6 +47,7 @@ class CertificatesController < ApplicationController
 
     respond_to do |format|
       if @certificate.save
+         @certificate.submit!
         format.html { redirect_to(company_certificates_path(@company), :notice => 'Certficate was successfully created.') }
         format.xml  { render :xml => @certificate, :status => :created, :location => @certificate }
       else
@@ -72,6 +73,38 @@ class CertificatesController < ApplicationController
   def destroy
     @certificate.destroy
     respond_with(@certificate)
+  end
+
+  def director_accept
+    if @certificate.director_accept!
+     respond_to do |format|
+      format.html { redirect_to(company_certificates_path(@company), :notice => 'Review was successfully updated.') }
+     end
+   end
+  end
+
+  def director_reject
+     if @certificate.director_reject!
+       respond_to do |format|
+          format.html { redirect_to(company_certificates_path(@company), :notice => 'Reject was successfully updated.') }
+       end 
+     end   
+  end
+
+  def minister_accept
+    if @certificate.minister_accept!
+     respond_to do |format|
+      format.html { redirect_to(company_certificates_path(@company), :notice => 'Review was successfully updated.') }
+     end
+   end
+  end
+
+  def minister_reject
+     if @certificate.minister_reject!
+       respond_to do |format|
+          format.html { redirect_to(company_certificates_path(@company), :notice => 'Reject was successfully updated.') }
+       end 
+     end   
   end
 
   private

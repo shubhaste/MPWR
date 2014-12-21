@@ -1,50 +1,79 @@
- <div class="container">
-  <div class="row clearfix">
-    <div class="panel panel-info">
-            <div class="panel-heading"><h5><strong>Certficate Information</strong></h5></div>
- 	<div class="row">
-          <div class="col-sm-2 col-md-offset-2">
-                <label  for="textinput">Company Name:</label> 
+<div class="row">
+      <div class="span12 padding5">
+        <div class="span3">
+          
+        <nav class="sidebar light">
+    <ul>
+        <li class="title">Admin Section</li>
+        <li class="stick">
+         <%= link_to(company_certificates_path) do %>
+            <i class="icon-arrow-left"></i>Back</a>
+          <% end %>
+        </li>
+        <li class="stick"><a href="#"><i class="icon-home"></i>Client Registration</a></li>
+        <li class="stick"><a href="#"><i class="icon-newspaper"></i>Expired Certificates</a></li>
+        <li class="stick"><a href="#"><i class="icon-enter"></i>Pending To Approve</a></li>
+    <li class="stick"><a href="#"><i class="icon-printer"></i>Print Actions</a></li>
+    <li class="stick"><a href="#"><i class="icon-user-3"></i>Customers Lookup</a></li>
+    </ul>
+</nav>
+          
+        </div>
+        <div class="span9">
+          <div class="panel">
+              <div class="panel-content">
+                <table class="table">
+                   <tr class="info">
+                      <td class="text-left" colspan="2">
+                          License Information
+                       </td>   
+                    </tr>  
+                    <tr>
+                      <td class="text-left span5">
+                          Business Name:
+                       </td>   
+                       <td class="text-left">
+                          <%= @company.name %>
+                       </td>  
+                     </tr>   
+                     <tr>
+                      <td class="text-left">
+                          License Actvities:
+                       </td>   
+                       <td class="text-left">
+                         <%= @certificate.description %>
+                       </td>  
+                     </tr>   
+                    <tr>
+                      <td class="text-left">
+                         Certficate Issue Date:
+                       </td>   
+                       <td class="text-left">
+                         <%= @certificate.cert_issue_date.to_date %>
+                       </td>  
+                     </tr>  
+                      <tr>
+                      <td class="text-left">
+                        Certficate Effective Date:
+                       </td>   
+                       <td class="text-left">
+                         <%= @certificate.cert_eff_date.to_date %>
+                       </td>  
+                     </tr>  
+                     <tr>
+                      <td class="text-left">
+                       Certficate Expire Date:
+                       </td>   
+                       <td class="text-left">
+                           <%= @certificate.cert_term_date.to_date %>
+                       </td>  
+                     </tr>  
+                           </table>   
+   
+                </div>
+            </div>
           </div>
-           <div class="col-md-3">
-              <%= @company.name %>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col-sm-2 col-md-offset-2">
-                <label  for="textinput">License Actvities:</label> 
-          </div>
-           <div class="col-md-3">
-              <%= @certificate.description %>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col-sm-2 col-md-offset-2">
-                <label  for="textinput">Certficate Issue Date:</label> 
-          </div>
-           <div class="col-md-3">
-               <%= @certificate.cert_issue_date %>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col-sm-2 col-md-offset-2">
-                <label  for="textinput">Certficate Effective Date:</label> 
-          </div>
-           <div class="col-md-3">
-               <%= @certificate.cert_eff_date %>
-          </div>
-      </div>
-       <div class="row">
-          <div class="col-sm-2 col-md-offset-2">
-                <label  for="textinput">Certficate Expire Date:</label> 
-          </div>
-           <div class="col-md-3">
-               <%= @certificate.cert_term_date %>
-          </div>
-      </div>
-  	<div>
-  <%= link_to(company_certificates_path, class: "btn btn-success") do %>
-	Back
-	<% end %>
- </div>	
+        </div>
+      </div>  
 
+ 

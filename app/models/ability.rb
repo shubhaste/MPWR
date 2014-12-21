@@ -10,12 +10,23 @@ class Ability
          can :update, Company 
          can :destroy, Company 
          can :create, Company
+         can :read, Certificate
+         can :update, Certificate
+         can :create, Certificate
+         can :issue, Certificate
       elsif user.has_role? :director
-          can :read, Company  
+         can :read, Company  
+         can :read, Certificate  
+         can :director_accept, Certificate
+         can :director_reject, Certificate
       elsif user.has_role? :minister
-          can :read, Company   
-          can :approve, Company   
-          can :reject, Company   
+          can :read, Company 
+          can :read, Certificate     
+          can :minister_accept, Certificate
+          can :minister_reject, Certificate
+          #can :approve, Company   
+          #can :reject, Company 
+          #can :read, Company    
        end
 
     #

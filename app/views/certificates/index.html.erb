@@ -1,41 +1,132 @@
- <div class="container">
-  <div class="row clearfix">
-    <div>    
-    <div class="panel panel-info">
-            <div class="panel-heading"><h5><strong>List Of Certficates : <%= @company.name %></strong></h5></div>
-  <table class="table table-striped table-bordered table-condensed">
+ <div class="row">
+      <div class="span10 padding5">
+        <div class="span3">
+          
+        <nav class="sidebar light">
+    <ul>
+        <li class="title">Admin Section</li>
+         <li class="stick">
+         <%= link_to(companies_path) do %>
+          <i class="icon-arrow-left"></i>Back</a>
+         <% end %> 
+           </li>
+        <li class="stick">
+          <%= link_to(new_company_certificate_path) do %>
+             <i class="icon-new"></i> New License Form
+          <% end %>
+        </li>
+        <li class="stick"><a href="#"><i class="icon-home"></i>Client Registration</a></li>
+        <li class="stick"><a href="#"><i class="icon-newspaper"></i>Expired Certificates</a></li>
+        <li class="stick"><a href="#"><i class="icon-enter"></i>Pending To Approve</a></li>
+    <li class="stick"><a href="#"><i class="icon-printer"></i>Print Actions</a></li>
+    <li class="stick"><a href="#"><i class="icon-user-3"></i>Customers Lookup</a></li>
+    </ul>
+</nav>
+          
+        </div>
+        <div class="span9">
+          <div class="panel2">
+              <div class="panel-content">
+                <table class="table hovered">
   <thead>
     <tr>
-      <th>License Activities</th>
-      <th>Issue Date</th>
-      <th>Effective Date</th>
-      <th>Expire Date</th>
-      <th>Actions</th>
+      <th class="size2 text-left">License Activities</th>
+     <!-- <th class="size2 text-left">Issue Date</th> -->
+      <th class="size3 text-left">Eff Date</th>
+      <th class="size2 text-left">Expire Date</th>
+      <th class="size2 text-left">Status</th>
+      <th colspan="4" class="size4">Actions</th>
     </tr>
   </thead>
     <tbody>
       <% @certificates.each do |certificate| %>
         <tr>
-          <td class="col-md-2"><%= certificate.description %></td>
-          <td class="col-md-2"><%= certificate.cert_issue_date %></td>
-           <td class="col-md-2"><%= certificate.cert_eff_date %></td>
-            <td class="col-md-2"><%= certificate.cert_term_date %></td>
-          <td class="col-md-2">
-           <%= link_to(company_certificate_path(@company,certificate), class: "btn btn-info") do %>
-              View
+          <td><%= certificate.description %></td>
+         <!-- <td><%= certificate.cert_issue_date.to_date %></td>-->
+           <td><%= certificate.cert_eff_date.to_date %></td>
+            <td><%= certificate.cert_term_date.to_date %></td>
+             <td><%= certificate.workflow_state %></td>
+        <td class="right">
+           <table>
+        <!--    <td>
+          <%= link_to(company_certificate_path(@company,certificate)) do %>
+              <button class="small info">View</button>
           <% end %>
-           <%= link_to(edit_company_certificate_path(@company,certificate), class: "btn btn-info") do %>
-              Edit
+         </td> -->
+         
+         
+          <% if certificate.awaiting_director_approval? %> 
+          <% if can? :update, certificate %>
+           <td class="right">
+             <%= link_to(edit_company_certificate_path(@company,certificate)) do %>
+                <button class="small default">Edit</button>
+            </td> 
+            <% end %>
           <% end %>
-          <%= link_to(company_certificate_path(@company,certificate,:pdf ), class: "btn btn-info") do %>
-              Download
+        <% end %>
+         
+        
+          <% if certificate.minister_accepted? %> 
+           <% if can? :issue, certificate %>
+           <td class="right" nowrap="nowrap">
+             <%= link_to(company_certificate_path(@company,certificate,:pdf )) do %>
+                <button class="small success">Issue Certificate</button>
+              <% end %>
+               </td> 
+            <% end %>   
           <% end %>
-         </td>
+
+          <% if certificate.awaiting_director_approval? %> 
+        
+            <% if can? :director_accept, certificate %>
+               <td class="right">
+              <%= link_to(director_accept_company_certificate_path(@company,certificate)) do %>
+               <button class="small success">Accept</button>
+              </td> 
+              <% end %>
+           
+             <% end %>
+          
+           <% if can? :director_reject, certificate %> 
+             <td class="right">
+            <%= link_to(director_reject_company_certificate_path(@company,certificate)) do %>
+               <button class="small danger">Reject</button>
+            <% end %>
+             </td> 
+          <% end %>
+        <% end %>
+           <% if certificate.awaiting_minister_approval? %> 
+            <% if can? :minister_accept, certificate %> 
+             <td class="right">
+              <%= link_to(minister_accept_company_certificate_path(@company,certificate)) do %>
+              <button class="small success">Accept</button>
+            <% end %>
+            </td> 
+          <% end %>
+
+          <% if can? :minister_reject, certificate %> 
+           <td class="right">
+            <%= link_to(minister_reject_company_certificate_path(@company,certificate)) do %>
+                <button class="small success">Reject</button>
+            <% end %>
+            </td> 
+          <% end %> 
+          <% end %> 
+        </tr>
+      </table>
+        </td>
         </tr>
       <% end %>
     </tbody>
   </table>
-  </div>
+
+       </div>
+            </div>
+        </div>
+        </div>
+      </div>
+
+  <!--</div>
          <%= link_to(companies_path, class: "btn btn-success") do %>
             Back
           <% end %>
@@ -44,4 +135,4 @@
           <% end %>
     </div>
    </div>
-</div>
+</div>-->

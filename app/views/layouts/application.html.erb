@@ -5,75 +5,52 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+   <style>
+        .container {
+            width: 1040px;
+        }
+    </style>
 </head>
-<body>
-<nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-        <form class="navbar-form navbar-left" role="search">
-        
-        
-      </form>
-            <li class="active"><a href="#">Home</a></li>
+<body class="metro">
+    <div class="container shadow">
+    <!--header-->
+    <nav class="horizontal-menu compact text-right">
+    <ul>        
+        <li><a href="/">Home</a></li>|
             
             <% if user_signed_in? %>
+             <li ><%= link_to 'Dashboard', companies_path%></li>|
               <li ><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
             <% else %>
               <li ><%= link_to 'Sign in', new_user_session_path %></li>
               <!--<li><%= link_to 'Sign up', new_user_registration_path %></li>-->
             <% end %>
-          </ul>
-        </div><!--/.nav-collapse -->
+    </ul>
+</nav>
+    <!--header end-->
+    <div class="grid fluid">
+      <div class="row">
+        <div class="span12 text-center"><img src="/assets/logo.png"><hr></div>
       </div>
-    </nav>
-    <div class="container">
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-   
-           <div class="col-md-4"><strong><img src="/assets/title_english.png"></strong></div>
-           <div class="col-md-4"><img src="/assets/logo.png"></div>
-            <div class="col-md-4"><strong><img src="/assets/title_arabic.png"></strong></div>
+    </div>  
+    <div class="grid fluid">
+      <main role="main">    
+        <%= yield %>
+      </main>
+    </div>
+  
+    <footer>
+        <div class="grid fluid">
+          <div class="row">
+          <div class="span12">
+          <p class="bg-cyan fg-white padding10">&copy All Rights Reserved 2011-2014 | Somali Federal Republic</p>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <h3><strong>Somali Federal Republic </strong></h3>
-        <h5><strong>Ministry Of Public Works & Reconstruction Office Of The Minister</strong></h5>
-      </div>
-    </div>
-    
+        </div>
+         
+        </footer> 
+</div>
+     
 
-   
-
-  <!-- <p class="notice"><%= notice %></p>
-     <p class="alert"><%= alert %></p>-->
-
- <main role="main">    
-<%= yield %>
-</main>
-<!-- Footer -->
-      <footer>
-        
-        <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-      </footer>
-<!--End Footer -->
-<!--<% flash.each do |name, msg| %>
-  <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
-
-<% end %>-->
- </div> <!-- /container -->
 </body>
 </html>

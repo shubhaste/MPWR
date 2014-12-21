@@ -1,6 +1,5 @@
 <%= form_for [@company, @certificate]  do |f| %>
-
-  <% if @certificate.errors.any? %>
+ <% if @certificate.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@certificate.errors.count, "error") %> prohibited this certificate from being saved:</h2>
 
@@ -12,42 +11,49 @@
     </div>
   <% end %>
 
-  <div class="row form-group">
-        <div class="col-md-2 col-md-offset-2">
-              <label  for="textinput">License Activities</label> 
-        </div>
-         <div class="col-md-4">
-                <%= f.text_field  :description,:class => "form-control input-md" %>
-        </div>
-    </div>
+<fieldset>
+<table>
+  <tr>
+    <td>
+ <label>License Activities</label>
 
-  <div class="row form-group">
-        <div class="col-md-2 col-md-offset-2">
-              <label  for="textinput">Certficate Issue Date</label> 
-        </div>
-         <div class="col-md-4">
-                <%= f.date_select  :cert_issue_date,:class => "form-control input-md" %>
-        </div>
-    </div>
-<div class="row form-group">
-        <div class="col-md-2 col-md-offset-2">
-              <label  for="textinput">Certficate Effective Date</label> 
-        </div>
-         <div class="col-md-4">
-                <%= f.date_select  :cert_eff_date,:class => "form-control input-md" %>
-        </div>
-    </div>
-   <div class="row form-group">
-        <div class="col-md-2 col-md-offset-2">
-              <label  for="textinput">Certficate Expire Date</label> 
-        </div>
-         <div class="col-md-4">
-                <%= f.date_select  :cert_term_date,:class => "form-control input-md" %>
-        </div>
-    </div> 
-    <div class="row col-md-offset-4">
-  <div class="actions">
-     <input name="commit" class="btn btn-success" type="submit" value="Update Certificate">
+  <div class="input-control textarea size6" data-role="input-control">
+     <%= f.text_area :description, :as => :text, :input_html => { :rows => 4, :cols => 20 },:placeholder=>"Enter License Activity" %>
   </div>
+</td>
+</tr>
+  <tr>
+    <td>
+ <label>Certficate Issue Date</label>     
+<div class="input-control   span6">
+   <%= f.date_select  :cert_issue_date  %>
 </div>
+</td>
+</tr>
+  <tr>
+    <td>
+ <label>Certficate Effective Date</label>
+ <div class="input-control  span6">
+  <%= f.date_select  :cert_eff_date,:class=>"select" %>
+</div>
+</td>
+</tr>
+  <tr>
+    <td>
+ <label>Certficate Expire Date</label>
+<div class="input-control  span6">
+<%= f.date_select  :cert_term_date,:class=>"select"  %>  
+</div>
+</td>
+</tr>
+<tr>
+    <td>
+<br>
+<input name="commit" class="success default" type="submit" value="Update Certificate">
+</td>
+</tr>
+</table>
+</fieldset>
+
+ 
 <% end %>

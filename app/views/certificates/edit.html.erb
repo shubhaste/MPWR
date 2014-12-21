@@ -1,20 +1,37 @@
-<div class="container">
-  <div class="row clearfix">
-    <div>
-    <div class="panel panel-info">
-	<div class="panel-heading"><h5><strong>Edit Certficate:    <%= @company.name %> </strong></h5></div>
+<div class="row">
+      <div class="span12 padding5">
+        <div class="span3">
+          
+        <nav class="sidebar light">
+    <ul>
+        <li class="title">Admin Section</li>
+        <li class="stick">
+         <%= link_to(company_certificates_path) do %>
+            <i class="icon-arrow-left"></i>Back</a>
+          <% end %>
+        </li>
+        <li class="stick"><a href="#"><i class="icon-home"></i>Client Registration</a></li>
+        <li class="stick"><a href="#"><i class="icon-newspaper"></i>Expired Certificates</a></li>
+        <li class="stick"><a href="#"><i class="icon-enter"></i>Pending To Approve</a></li>
+    <li class="stick"><a href="#"><i class="icon-printer"></i>Print Actions</a></li>
+    <li class="stick"><a href="#"><i class="icon-user-3"></i>Customers Lookup</a></li>
+    </ul>
+</nav>
+          
+        </div>
+        <div class="span9">
+          <div class="panel">
+              <div class="panel-content">
+              	<legend>Edit License Form for :    <%= @company.name %> </legend>
+			
 		<%= render 'form' %>
 		</div>
-		   <%= link_to(company_certificates_path, class: "btn btn-success") do %>
-Back
-<% end %>
-<%= link_to(company_certificate_path, class: "btn btn-success") do %>
-Show
-<% end %>
+		 
     </div>
-   </div>
-
+    </div>
+  </div>
 </div>
+</div>  
 
 
 

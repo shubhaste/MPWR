@@ -65,7 +65,17 @@ Rails.application.routes.draw do
   resources :users
 
 resources :companies do
-   resources :certificates
- end
+    resources :certificates do
+       member do
+         # get :reject,:as => 'reject'
+         # get :accept,:as => 'accept'
+         # get :review,:as => 'review'
+        get :director_reject,:as => 'director_reject'
+        get :director_accept,:as => 'director_accept' 
+        get :minister_reject,:as => 'minister_reject'
+        get :minister_accept,:as => 'minister_accept' 
+      end
+    end
+  end
 
 end

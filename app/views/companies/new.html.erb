@@ -1,13 +1,35 @@
- <div class="container">
-  <div class="row clearfix">
-    <div>
-    <div class="panel panel-info">
-						<div class="panel-heading"><h5><strong>New Business Information Form</strong></h5></div>
-						
-    
-		<%= render 'form' %>
-		<%= link_to 'Back', companies_path %>
-		</div>
-    </div>
-   </div>
-</div>
+<div class="row">
+			<div class="span12 padding5">
+				<div class="span3">
+					
+				<nav class="sidebar light">
+    <ul>
+        <li class="title">Admin Section</li>
+         <li class="stick">
+        <%= link_to(companies_path) do %>
+          <i class="icon-arrow-left"></i>Back</a>
+         <% end %> 
+       </li>
+        <li class="active">
+         <%= link_to(new_company_path) do %>
+           <i class="icon-new"></i> New Application Form
+          <% end %>
+        </li>
+        <li class="stick"><a href="#"><i class="icon-home"></i>Client Registration</a></li>
+        <li class="stick"><a href="#"><i class="icon-newspaper"></i>Expired Certificates</a></li>
+        <li class="stick"><a href="#"><i class="icon-enter"></i>Pending To Approve</a></li>
+    <li class="stick"><a href="#"><i class="icon-printer"></i>Print Actions</a></li>
+    <li class="stick"><a href="#"><i class="icon-user-3"></i>Customers Lookup</a></li>
+    </ul>
+</nav>
+					
+				</div>
+				<div class="span9">
+					<div class="panel">
+							<div class="panel-content">
+									<%= render 'form' %>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>

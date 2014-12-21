@@ -53,7 +53,7 @@ gem 'cocaine'
 
 gem 'paperclip', '~> 4.2'
 
-gem 'bootstrap-sass', '~> 3.3.1.0'
+#gem 'bootstrap-sass', '~> 3.3.1.0'
 
 gem 'autoprefixer-rails'
 
@@ -64,3 +64,5 @@ gem 'formtastic-bootstrap', '~> 3.0.0.rc.2'
 gem 'hermitage'
 
 gem 'prawn', '~> 1.3.0'
+
+gem 'workflow'

@@ -1,28 +1,26 @@
 <div class="nested-fields">
   <%= f.inputs do %>
-   <div class="row form-group">
-          <div class="col-md-3 col-md-offset-2">
-            <%= f.select :description, options_for_select([["Authorization/Business receipt", "Authorization/Business receipt"],["Bank Statement","Bank Statement"],["Letter of Agreement", "Letter of Agreement"]],
+ <div class="input-control select size4">
+  <%= f.select :description, options_for_select([["Authorization/Business receipt", "Authorization/Business receipt"],["Bank Statement","Bank Statement"],["Letter of Agreement", "Letter of Agreement"]],
             :selected => f.object.description) %>
-          </div>
-           <div class="col-md-3">
-               <%= f.file_field :attachment %>
-          </div>
-          <div class="col-md-2">
-             <a href="<%=f.object.attachment.url(:retina)%>" rel="hermitage">
+  </div>          
+<div class="file size8">
+  <table>
+    <tr>
+        <td valign="middle">
+            <%= f.file_field :attachment %>
+        </td>  
+        <td valign="top">
+           <a href="<%=f.object.attachment.url(:retina)%>" rel="hermitage">
                <%=f.template.image_tag(f.object.attachment.url(:thumb)) %>
             </a>
-          </div>
-             <div class="col-md-2 links">   
-               <%= label_tag '' %>
-              <%= link_to_remove_association "Remove Attachment", f,:class=>"btn btn-info" %>
-            </div>
-    </div>
-     <div class="row">
-        <div class="col-md-2  col-md-offset-6 links">   
-          &nbsp;
-        </div>
-   </div>
+         </td>
+         <td valign="top">
+           <%= link_to_remove_association "Remove Attachment", f,:class=>"medium button danger default" %>
+         </td>
+      </tr>
+     </table>        
+</div>
   <% end %>
 </div>
 

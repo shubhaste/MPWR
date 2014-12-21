@@ -13,5 +13,5 @@
  *= require_tree .
  *= require_self
  */
-@import "bootstrap-sprockets";
-@import "bootstrap";
+@import 'metro/css/modern.css';
+@import 'metro/css/modern-responsive.css'; // for responsive design
