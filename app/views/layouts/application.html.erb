@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Publicworkandreconstructionoffice</title>
+  <title>Hawlahaguud</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -15,10 +15,14 @@
     <div class="container shadow">
     <!--header-->
     <nav class="horizontal-menu compact text-right">
-    <ul>        
+    <ul>   
+    <% if user_signed_in? %>
+             <li>Welcome <%=User.current.email%>!</li>|
+     <% end %>             
         <li><a href="/">Home</a></li>|
             
             <% if user_signed_in? %>
+   
              <li ><%= link_to 'Dashboard', companies_path%></li>|
               <li ><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
             <% else %>
