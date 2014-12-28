@@ -66,3 +66,7 @@ gem 'hermitage'
 gem 'prawn', '~> 1.3.0'
 
 gem 'workflow'
+
+gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+gem 'jquery-ui-rails', github: 'joliss/jquery-ui-rails'
+gem 'will_paginate'

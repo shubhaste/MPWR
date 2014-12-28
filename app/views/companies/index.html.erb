@@ -1,91 +1,75 @@
 <div class="row">
-      <div class="span12 padding5">
-        <div class="span3">
-          
-        <nav class="sidebar light">
-    <ul>
-        <li class="title">Admin Section</li>
-        <li class="stick">
-         <%= link_to(new_company_path) do %>
-           <i class="icon-new"></i> New Application Form
-          <% end %>
-        </li>
-        <li class="stick"><a href="#"><i class="icon-home"></i>Client Registration</a></li>
-        <li class="stick"><a href="#"><i class="icon-newspaper"></i>Expired Certificates</a></li>
-        <li class="stick"><a href="#"><i class="icon-enter"></i>Pending To Approve</a></li>
-    <li class="stick"><a href="#"><i class="icon-printer"></i>Print Actions</a></li>
-    <li class="stick"><a href="#"><i class="icon-user-3"></i>Customers Lookup</a></li>
-    </ul>
+<div class="span12 padding5">
+  <div class="span3">
+  <nav class="sidebar light">
+<ul>
+  <li class="title">Admin Section</li>
+  <li class="stick">
+   <%= link_to(new_company_path) do %>
+     <i class="icon-new"></i> New Application Form
+    <% end %>
+  </li>
+  <li class="stick"><a href="#"><i class="icon-home"></i>Client Registration</a></li>
+  <li class="stick"><a href="#"><i class="icon-newspaper"></i>Expired Certificates</a></li>
+  <li class="stick"><a href="#"><i class="icon-enter"></i>Pending To Approve</a></li>
+<li class="stick"><a href="#"><i class="icon-printer"></i>Print Actions</a></li>
+<li class="stick"><a href="#"><i class="icon-user-3"></i>Customers Lookup</a></li>
+</ul>
 </nav>
-          
-        </div>
-        <div class="span9">
-          <div class="panel">
-              <div class="panel-content">
-                <table class="table hovered">
-                        <thead>
-                        <tr>
-                            <th class="text-left">Business Name</th>
-                            <th class="text-left">Address</th>
-                             <th class="text-left">Status</th>
-                            <th colspan="4" class="text-center">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                         <% @companies.each do |company| %>  
-                        <tr>
-                            <td><%= company.name %></td>
-                            <td class="right"><%= company.address %></td>
-                             <td class="right">
-                               <% if company.certificates.first.present? %>
-                               <% if !company.certificates.first.workflow_state.nil? %>
-                                   <%= company.certificates.first.workflow_state.gsub(/_/, " ") %>
-                                   <% else %>
-                                   License Does't not exist
-                                <% end %>
-                                <% else %>
-                                   License Does't not exist
-                               <% end %>
-                             </td>
-                            <td class="right">
+</div>
+  <div class="span9">
+    <div class="panel">
+        <div class="panel-content">
+          <table id="products" class="display"  data-source="<%= companies_url(format: "json") %>">
+                <thead>
+                  <tr>
+                      <th class="text-left">Business Name</th>
+                      <th class="text-left">Address</th>
+                      <th class="text-left">Status</th>
+                      <th class="text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%@companies.each do |company| %>  
+                      <tr>
+                          <td><%= company.name %></td>
+                          <td class="right"><%= company.address %></td>
+                          <td class="right">
+                           <% if company.certificates.first.present? %>
+                           <% if !company.certificates.first.workflow_state.nil? %>
+                               <%= company.certificates.first.workflow_state.gsub(/_/, " ") %>
+                               <% else %>
+                               License Does't not exist
+                            <% end %>
+                            <% else %>
+                               License Does't not exist
+                           <% end %>
+                          </td>
+                          <td class="right" >
                             <% if can? :read, company %>
                                <%= link_to(company) do %>
                                   <button class="small info">View</button>
                                 <% end %>
-                              <% end %>
-                            </td>
-                            <td class="right">
-                              <% if can? :update, company %>
+                            <% end %>
+                            <% if can? :update, company %>
                                 <%= link_to(edit_company_path(company)) do %>
-                                  <button class="small default">Edit</button></td>
+                                  <button class="small default">Edit</button>
                                 <% end %>
                               <% end %>
-                          <!--  <td class="right">
-                              <% if can? :destroy, company %>
-                                <%= link_to(company,method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-info") do %>
-                                <button class="small danger">Delete</button>
-                                <% end %>
-                              <% end %>
-                            </td>-->
-                            <td class="right">
-                              <%= link_to(company_certificates_path(company)) do %>
-                                <% if company.certificates.first.present? %>
-                                   <button class="small success">License</button>
-                                  <% else %> 
-                                    <button class="small warning">License</button>
-                                  <% end %>
-                              <% end %>
-                            </td>
-                          </tr>
-                         <% end %>
-                        </tbody>
-                        <tfoot></tfoot>
-                    </table>
-
-              </div>
-            </div>
-        </div>
+                              
+                            <%= link_to(company_certificates_path(company)) do %>
+                              <%@clss = company.certificates.first.present? ? "small success" : "small warning"%>
+                              <button class= "<%=@clss%>" >License</button>
+                            <% end %>
+                          </td>
+                      </tr>
+                  <%end%>
+                </tbody>
+              </table>
         </div>
       </div>
+  </div>
+  </div>
+</div>
 
 

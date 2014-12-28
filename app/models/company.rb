@@ -1,4 +1,8 @@
 class Company < ActiveRecord::Base
+
+	validates :name, presence: true
+	validates :address, presence: true
+	
 	has_many :owners, :dependent => :destroy
 	accepts_nested_attributes_for :owners, :allow_destroy => true
 	has_many :attachments, :dependent => :destroy
