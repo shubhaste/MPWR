@@ -20,7 +20,7 @@
   <div class="span9">
     <div class="panel">
         <div class="panel-content">
-          <table id="products" class="display"  data-source="<%= companies_url(format: "json") %>">
+          <table id="products" class="display">
                 <thead>
                   <tr>
                       <th class="text-left">Business Name</th>
@@ -59,7 +59,7 @@
                               
                             <%= link_to(company_certificates_path(company)) do %>
                               <%@clss = company.certificates.first.present? ? "small success" : "small warning"%>
-                              <button class= "<%=@clss%>" >License</button>
+                              <button class= "<%=@clss%>" data-no-turbolink >License</button>
                             <% end %>
                           </td>
                       </tr>
