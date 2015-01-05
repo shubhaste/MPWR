@@ -1,0 +1,134 @@
+
+                <table class="table">
+                   <tr class="info">
+                      <td class="text-left" colspan="4">
+                         Business Information
+                       </td>   
+                    </tr>  
+                    <tr>
+                      <td class="text-left span4">
+                         Company Name:
+                       </td>   
+                       <td class="text-left span3">
+                          <%= @company.name %>
+                       </td> 
+                       <td class="text-left span3">
+                         Address:
+                       </td>   
+                       <td class="text-left span3">
+                         <%= @company.address %>
+                       </td>   
+                     </tr>   
+                     <tr class="info">
+                      <td class="text-left" colspan="4">
+                         Owners Information
+                       </td>   
+                    </tr>   
+                     <% @company.owners.each do |owner| %>
+                        <tr>
+                          <td class="text-left">
+                             Owner Name:
+                           </td>   
+                           <td class="text-left">
+                               <%= owner.name %>
+                           </td> 
+                           <td class="text-left">
+                              Birth Date:
+                           </td>   
+                           <td class="text-left">
+                                <%= owner.birth_date.to_date.strftime('%v') %>
+                           </td>  
+                         </tr>  
+                         <tr>
+                          <td class="text-left">
+                             Nationality:
+                           </td>   
+                           <td class="text-left">
+                                <%= owner.nationality %>
+                           </td>  
+
+                          <td class="text-left">
+                              Gender:
+                           </td>   
+                           <td class="text-left">
+                                 <%= owner.gender %>
+                            </td>  
+                          </tr>
+                          <tr>  
+                             <td class="text-left">
+                                Email:
+                             </td>   
+                             <td class="text-left">
+                                   <%= owner.email %>
+                              </td>  
+                              <td colspan="4">
+                                &nbsp;
+                              </td>
+                         </tr> 
+                         <tr>
+                            <td class="text-left">
+                                National ID<br/>
+                                Expiry Date:
+                             </td>   
+                             <td class="text-left">
+                                  <%= owner.national_id %><br/>
+                                   <%= owner.national_id_expiry_date.to_date.strftime('%v') %>
+                              </td>  
+                            <td class="text-left">
+                                National ID Attachment:
+                             </td>   
+                             <td class="text-left">
+                                   <a href="<%=owner.national_attachment.url(:retina)%>" rel="hermitage">
+                                    <%= image_tag owner.national_attachment.url(:thumb) %>
+                                  </a>
+                                  <% if owner.national_attachment.content_type == 'application/pdf' %>
+                                    <%= link_to "Download pdf", national_pdf_company_owner_path(@company,owner) %>
+                                  <% end %>     
+                              </td>  
+                         </tr> 
+                         <tr>
+                              <td class="text-left">
+                               Passport Number:<br/>
+                               Passport Expiry Date:
+                             </td>   
+                             <td class="text-left">
+                                   <%= owner.passport_number %><br/>
+                                   <%= owner.passport_number_expiry_date.to_date.strftime('%v') %>
+                              </td>  
+                              <td class="text-left">
+                                Passport Attachment:
+                             </td>   
+                             <td class="text-left">
+                                  <a href="<%=owner.passport_attachment.url(:retina) %>" rel="hermitage">
+                                    <%= image_tag owner.passport_attachment.url(:thumb) %>
+                                  </a>
+                                  <% if owner.passport_attachment.content_type == 'application/pdf' %>
+                                    <%= link_to "Download pdf", passport_pdf_company_owner_path(@company,owner) %>
+                                  <% end %>     
+                              </td>  
+                         </tr>  
+                        <% end %>   
+                      <tr class="info">
+                        <td class="text-left" colspan="4">
+                            Other Attachments
+                         </td>   
+                       </tr>   
+       
+                   
+                        <% @company.attachments.each do |attachment| %>
+                          <tr>
+                              <td class="text-left">
+                                  <%= attachment.description%>:
+                               </td>   
+                               <td class="text-left span4" colspan="3">
+                                      <a href="<%=attachment.attachment.url(:retina)%>" rel="hermitage">
+                                       <%= image_tag attachment.attachment.url(:thumb) %>
+                                      </a>
+                                  <% if attachment.attachment.content_type == 'application/pdf' %>
+                                    <%= link_to "Download pdf", pdf_company_attachment_path(@company,attachment) %>
+                                  <% end %>  
+                                </td>  
+                           </tr> 
+                          <% end %>  
+                 </table>   
+ 

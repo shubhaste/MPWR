@@ -1,0 +1,66 @@
+<div class="row">
+      <div class="span12 padding5">
+        <div class="span12">
+          <div class="panel">
+              <div class="panel-content">
+                <table class="table ">
+                        <thead>
+                        <tr>
+                            <th class="text-left size3" >User Name</th>
+                            <th class="text-left size3" >Email</th>
+                            <th class="text-left size3" >Status</th>
+                            <th class="text-left size3" >Role</th>
+                            <th class="text-left size3" >Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                           <% @users.each do |user| 
+
+
+                            %>
+
+                           <tr>
+                            <td colspan="5">
+                           <%= form_for(user) do |f| %>
+                            <table> 
+                            <tr>
+                              <td class="text-left size3" ><%=user.username%></td>
+                              <td class="text-left size3" ><%=user.email%></td>
+                              <td  class="text-left size3">
+                                <div class="input-control select " >
+                                 <%= f.select :is_active, options_for_select([["Active", true],["In Active",false]],:selected => f.object.is_active ) %>
+                                 </div>
+                              </td>
+                              <td  class="text-left size3" >
+                                  <% for role in Role.all.where.not(name: ['admin', 'super_admin']) %>
+                                      <div class="input-control " data-role="input-control">
+                                          <label>
+                                              <%= check_box_tag "user[role_ids][]", role.id, user.roles.include?(role) %>
+                                              <span class="check"></span>
+                                               <%=h role.name %>
+                                          </label>
+                                      </div>
+
+                                  <% end %>
+                              </td>  
+                                <td class="text-left size3">
+                                    <%= f.submit 'Change Roles / Status', :class => "info small" %>
+                                </td>
+                              </tr>
+                            </table>
+                           <% end %>
+                          </td>
+                        </tr>
+                          <% end %>
+                        </tbody>
+                    </table>
+              </div>
+            </div>
+        </div>
+        </div>
+      </div>
+
+
+
+
+
