@@ -67,16 +67,12 @@ gem 'prawn', '~> 1.3.0'
 
 gem 'workflow'
 
-gem 'jquery-datatables-rails'
-#, github: 'rweng/jquery-datatables-rails'
-gem 'jquery-ui-rails'
-#, github: 'joliss/jquery-ui-rails'
+gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+gem 'jquery-ui-rails', github: 'joliss/jquery-ui-rails'
 gem 'will_paginate'
 
 gem 'countries'
-#gem 'country_select'
-gem 'country_select'
-#, git: 'https://github.com/alibabajan/country_select.git'
+gem 'country_select', git: 'https://github.com/alibabajan/country_select.git'
 
 gem 'jquery-turbolinks'
 
