@@ -24,112 +24,16 @@
 </nav>
           
         </div>
-        <div class="span6">
+        <div class="span9">
           <div class="panel">
               <div class="panel-content">
-                 <table class="table">
-                   <tr class="info">
-                      <td class="text-left" colspan="2">
-                          Business Information
-                       </td>   
-                    </tr>  
-                    <tr>
-                      <td class="text-left span5">
-                          Business Name:
-                       </td>   
-                       <td class="text-left">
-                          <%= @company.name %>
-                       </td>  
-                     </tr>   
-                     <tr>
-                      <td class="text-left">
-                          Address:
-                       </td>   
-                       <td class="text-left">
-                         <%= @company.address %>
-                       </td>  
-                     </tr>   
-                      <tr class="info">
-                      <td class="text-left" colspan="2">
-                          Owners Information
-                       </td>   
-                    </tr>   
-                     <% @company.owners.each do |owner| %>
-                        <tr>
-                          <td class="text-left">
-                              Owner Name:
-                           </td>   
-                           <td class="text-left">
-                               <%= owner.name %>
-                           </td>  
-                         </tr>  
-                         <tr>
-                          <td class="text-left">
-                              Nationality:
-                           </td>   
-                           <td class="text-left">
-                                <%= owner.nationality %>
-                           </td>  
-                         </tr>  
-                         <tr>
-                          <td class="text-left">
-                              Gender:
-                           </td>   
-                           <td class="text-left">
-                                 <%= owner.gender %>
-                            </td>  
-                         </tr>  
-                          <tr>
-                            <td class="text-left">
-                                Email:
-                             </td>   
-                             <td class="text-left">
-                                   <%= owner.email %>
-                              </td>  
-                         </tr> 
-                          <tr>
-                            <td class="text-left">
-                                Passport Attachment:
-                             </td>   
-                             <td class="text-left">
-                                  <a href="<%=owner.passport_attachment.url(:large) %>" rel="hermitage">
-                                    <%= image_tag owner.passport_attachment.url(:thumb) %>
-                                  </a>
-                              </td>  
-                         </tr>  
-                         <tr>
-                            <td class="text-left">
-                                National Attachment:
-                             </td>   
-                             <td class="text-left">
-                                   <a href="<%=owner.national_attachment.url(:large)%>" rel="hermitage">
-                                    <%= image_tag owner.national_attachment.url(:thumb) %>
-                                  </a>
-                              </td>  
-                         </tr> 
-                          <tr class="info">
-                        <td class="text-left" colspan="2">
-                            Other Attachments
-                         </td>   
-                       </tr>   
-       
-                     <% end %>
-                        <% @company.attachments.each do |attachment| %>
-                          <tr>
-                              <td class="text-left">
-                                  <%= attachment.description%>:
-                               </td>   
-                               <td class="text-left">
-                                      <a href="<%=attachment.attachment.url(:large)%>" rel="hermitage">
-                                       <%= image_tag attachment.attachment.url(:thumb) %>
-                                      </a>
-                                </td>  
-                           </tr> 
-                          <% end %>  
-                 </table>   
-   
+                 <%= render  "show" %>
+
+  
                 </div>
             </div>
           </div>
         </div>
       </div>
+
+                 

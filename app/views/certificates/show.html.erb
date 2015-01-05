@@ -6,11 +6,17 @@
     <ul>
         <li class="title">Admin Section</li>
         <li class="stick" data-no-turbolink >
-         <%= link_to(company_certificates_path) do %>
-            <i class="icon-arrow-left"></i>Back</a>
+        <%= link_to(companies_path) do %>
+          <i class="icon-arrow-left"></i>Dashboard</a>
+         <% end %> 
+       </li>
+       <% if  current_user.has_role? :staff and  !@certificate.license_issued?%>
+        <li class="stick">
+         <%= link_to(edit_company_path(@company)) do %>
+           <i class="icon-wrench"></i> Edit Client Registration
           <% end %>
         </li>
-        <li class="stick"><a href="#"><i class="icon-home"></i>Client Registration</a></li>
+        <% end %>
         <li class="stick"><a href="#"><i class="icon-newspaper"></i>Expired Certificates</a></li>
         <li class="stick"><a href="#"><i class="icon-enter"></i>Pending To Approve</a></li>
     <li class="stick"><a href="#"><i class="icon-printer"></i>Print Actions</a></li>
@@ -22,34 +28,82 @@
         <div class="span9">
           <div class="panel">
               <div class="panel-content">
+                <% if @certificate.errors.any? %>
+                  <div id="error_explanation">
+                    <h2>
+                      <%= "#{pluralize(@company.errors.count, "error")} prohibited this company from being saved:" %>
+                    </h2>
+                    <ul>
+                      <% @certificate.errors.full_messages.each do |msg| %>
+                        <li>
+                          <%= msg %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                  <% end %>
+                   <%= render  "companies/show" %>
+                    <table class="table">
+                 <thead>
+                   <tr class="info">
+                      <td class="text-left" colspan="4">License Activities </td>
+                  </tr>
+                  <tr>
+                      <th class="text-left">Date</th>
+                      <th class="text-left">User Email</th>
+                      <th class="text-left">Status</th>
+                      <th class="text-center">Remarks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @certificate.license_issue_activities.each do |license_activity| %>
+                     <tr>
+                        <td class="text-left">
+                         <%= license_activity.created_at.strftime('%v %r') %>
+                       </td>  
+                        <td class="text-left">
+                         <%=license_activity.user.email%>
+                       </td>  
+                      <td class="text-left">
+                         <%= license_activity.status %>
+                       </td>   
+                      <td class="text-left">
+                           <%=license_activity.remarks%>
+                       </td>  
+                     </tr>
+                  <% end %>
+                </tbody>
+                </table>  
+   <%= form_for [@company, @certificate]  do |f| %>
                 <table class="table">
                    <tr class="info">
                       <td class="text-left" colspan="2">
                           License Information
                        </td>   
                     </tr>  
-                    <tr>
-                      <td class="text-left span5">
-                          Business Name:
-                       </td>   
-                       <td class="text-left">
-                          <%= @company.name %>
-                       </td>  
-                     </tr>   
+
                      <tr>
-                      <td class="text-left">
-                          License Actvities:
+                      <td class="text-left span3">
+                          License Activities:
                        </td>   
-                       <td class="text-left">
+                       <td class="text-left ">
                          <%= @certificate.description %>
                        </td>  
-                     </tr>   
+                     </tr>  
+                    <tr>
+                      <td class="text-left">
+                          License Status:
+                       </td>   
+                       <td class="text-left">
+                         <%= @certificate.workflow_state %>
+                       </td>  
+                     </tr>     
                     <tr>
                       <td class="text-left">
                          Certficate Issue Date:
                        </td>   
                        <td class="text-left">
-                         <%= @certificate.cert_issue_date.to_date %>
+                         <%= @certificate.cert_issue_date.to_date.strftime('%v') %>
                        </td>  
                      </tr>  
                       <tr>
@@ -57,7 +111,7 @@
                         Certficate Effective Date:
                        </td>   
                        <td class="text-left">
-                         <%= @certificate.cert_eff_date.to_date %>
+                         <%= @certificate.cert_eff_date.to_date.strftime('%v') %>
                        </td>  
                      </tr>  
                      <tr>
@@ -65,15 +119,90 @@
                        Certficate Expire Date:
                        </td>   
                        <td class="text-left">
-                           <%= @certificate.cert_term_date.to_date %>
+                           <%= @certificate.cert_term_date.to_date.strftime('%v') %>
                        </td>  
-                     </tr>  
+                     </tr> 
+
+                     <% if !(current_user.has_role? :admin or current_user.has_role? :super_admin) %>
+
+                       <% if (current_user.has_role? :director and @certificate.awaiting_for_director_approval?) or (current_user.has_role? :minister and  @certificate.awaiting_for_minister_approval?) or (current_user.has_role? :staff and @certificate.minister_has_accepted?)   or (current_user.has_role? :staff and @certificate.revoked?) or 
+                         (current_user.has_role? :staff and @certificate.license_issued?) or
+                         (current_user.has_role? :staff and @certificate.reinstated?) %> 
+                     <tr>
+                      <td class="text-left">
+                      Remarks:
+                       </td>   
+                       <td class="text-left">
+                          <div class="input-control textarea size6" data-role="input-control">
+                           <%= f.text_area :remarks,:value => '', :as => :text, :input_html => { :rows => 4, :cols => 20 },:placeholder=>"Enter Remarks" %>
+                         </div>
+                       </td>  
+                     </tr> 
+                    <% end %>
+                     <% if @certificate.awaiting_for_director_approval? %> 
+                      <tr>
+                        <% if can? :director_accept, @certificate %>
+                           <td class=" right">
+                           <input name="commit_director" data-disable-with="Processing." class="success default" type="submit" value="Accept License">     
+                        </td> 
+                         <% end %>
+                      
+                       <% if false and can? :director_reject, @certificate %> 
+                         <td class="right">
+                           <input name="commit_director" data-disable-with="Processing." class="small danger" type="submit" value="Reject License">
+                         </td> 
+                           <% end %>
+                       <% end %>
+
+                  <% if @certificate.awaiting_for_minister_approval? %> 
+                      <tr>
+                        <% if can? :minister_accept, @certificate %>
+                           <td class="right">
+                             <input name="commit_minister" data-disable-with="Processing." class="success default" type="submit" value="Accept License">   
+                           </td> 
+                         <% end %>
+                      
+                       <% if can? :minister_reject, @certificate %> 
+                         <td class="right">
+                           <input name="commit_minister" data-disable-with="Processing." class="small danger" type="submit" value="Reject License">
+                         </td> 
+                           <% end %>
+                          </tr> 
+                  <% end %>
+
+                        <% if (@certificate.minister_has_accepted? or @certificate.reinstated? or @certificate.license_issued? ) and current_user.has_role? :staff %> 
+                        <tr>
+                           <td class="right">
+                             <input name="commit_revoke" data-disable-with="Processing." class="small danger" type="submit" value="Revoke License">
+                           </td> 
+                      
+                          </tr> 
+                       <% end %>
+                    <% if @certificate.revoked? and current_user.has_role? :staff  %> 
+                         <tr>
+                           <td class="right">
+                             <input name="commit_reinstate" data-disable-with="Processing." class="small danger" type="submit" value="Reinstate License">
+                           </td> 
+                           </tr>  
+                    <% end %> 
+                 <% if @certificate.pending? and can? :ready_for_approval, @certificate%> 
+                 <tr>
+                    <td class="right">
+                    <%= link_to(ready_approval_company_certificate_path(@company,@certificate)) do %>
+                      <button class="small success " data-disable-with="Processing.">Ready for approval</button>
+                    <% end %>
+                  </td>
+                </tr>
+               <% end %>
+                <% end %>
                            </table>   
-   
+             <% end %>
                 </div>
             </div>
           </div>
         </div>
-      </div>  
 
- 
+
+
+
+

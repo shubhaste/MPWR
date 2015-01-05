@@ -15,46 +15,70 @@
   <% end %>
 
 <fieldset>
-  <legend>New Business Information</legend>
-  <label>Business Name</label>
-  <div class="input-control text size4" data-role="input-control">
-    <%= f.text_field  :name,:placeholder=>"Enter Your Business Name" %>
-    <button class="btn-clear" tabindex="-1"></button>
+  <legend>Magaca Shirkada / New Business Information</legend>
+  <div class="row">
+    <div class="span5">  
+      <label>Magaca Shirkada/Company Name</label>
+      <div class="input-control text size4" data-role="input-control">
+        <%= f.text_field  :name,:placeholder=>"Magaca Shirkada/Company Name",:required => true %>
+        <button class="btn-clear" tabindex="-1"></button>
+      </div>
   </div>
-  <label>Address</label>
-  <div class="input-control textarea size4" data-role="input-control">
-     <%= f.text_area :address, :as => :text, :input_html => { :rows => 4, :cols => 20 },:placeholder=>"Enter Your Business Address" %>
+  <div class="span5">  
+    <label>Ciwaan/Address</label>
+    <div class="input-control textarea size4" data-role="input-control">
+       <%= f.text_area :address, :as => :text, :input_html => { :rows => 4, :cols => 20 },
+       :placeholder=>"Ciwaan/Address",:required => true %>
+    </div>
   </div>
+</div>
 </fieldset>
-            
+
   <fieldset>
-    <legend>Business Owner Details</legend>
+    <legend>Shaqsiga Magaciisa/ Business Owners Information</legend>
     <div>  
       <%= f.semantic_fields_for :owners do |owner| %>
         <%= render 'owner_fields', :f => owner %>
       <% end %>
         <div> 
-      <%= link_to_add_association 'Add Another Business Owner', f, :owners, :class=>"info medium button"  %>
+          <br/>
+      <%= link_to_add_association 'Shaqsiga Magaciisa/Add Business Owner', f, :owners, :class=>"info medium button"  %>
+        </div> 
+    </div>
+  </fieldset>
+<br/>
+<br/>
+  <fieldset>
+    <legend>Common  Required Documents Intake</legend>
+     <div>  
+     <%= f.semantic_fields_for :attachments do |attachment| %>
+        <%= render 'attachment_fields', :f => attachment %>
+    <% end %> 
+    <div> 
+      <br/>
+      <%= link_to_add_association 'Add Attachment', f, :attachments,:class=>"info medium button" %>
+     </div>  
+    </div>   
+ </fieldset> 
+ 
+<br/>
+<br/>
+  <fieldset>
+    <legend>Shaqsiga Magaciisa/ License Information</legend>
+    <div>  
+      <%= f.semantic_fields_for :certificates do |certificate| %>
+        <%= render 'certificates/form', :f => certificate %>
+      <% end %>
+        <div> 
+          <br/>
+   
         </div> 
     </div>
   </fieldset>
 
-<div>
-  <fieldset>
-<legend>Common  Required Documents Intake</legend>
- <div>  
- <%= f.semantic_fields_for :attachments do |attachment| %>
-    <%= render 'attachment_fields', :f => attachment %>
-<% end %> 
-  <%= link_to_add_association 'Add Attachment', f, :attachments,:class=>"info medium button" %>
- </div>  
- </fieldset> 
- </div> 
-<br/>
-<br/>
-  <input name="commit" class="success large" type="submit" value="Update Business Information Form">
+  <input name="commit" class="success large" data-disable-with="Please wait processing." type="submit" value="Update Business Information Form">
 
-</fieldset>
+
                 
 <% end %>
 

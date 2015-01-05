@@ -21,3 +21,38 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    models: 
+      company: "Business"
+      owners: "owner"
+    attributes:
+      company: 
+        name: "Business Name"
+        address: "Business Address"
+        company: "Business Address"        
+      owners: 
+        name: "Owner Name"
+        phone: "Owner phone"
+        email: "Owner email"
+        passport_attachment: "Owner passport attachment"
+        national_attachment: "Owner National ID attachment"        
+    errors:
+      models: 
+        company: 
+          attributes:
+            name:
+              blank: "cannot be empty"
+            address:
+              blank: "cannot be empty"
+        owner: 
+          attributes:
+            name:
+              blank: "cannot be empty"
+            phone:
+              blank: "cannot be empty"              
+            email:
+              blank: "cannot be empty"    
+            passport_attachment:
+              blank: "cannot be empty"    
+            national_attachment:
+              blank: "cannot be empty"                

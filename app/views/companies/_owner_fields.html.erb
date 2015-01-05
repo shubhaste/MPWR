@@ -1,63 +1,136 @@
 <div class="nested-fields">
 <%= f.inputs do %>
-<label>Owner Name</label>
-<div class="input-control text size4" data-role="input-control">
-    <%= f.text_field  :name,:placeholder => "Enter Owner Name" %>
-    <button class="btn-clear" tabindex="-1"></button>
+<div class="row">
+    <div class="span5">   
+      <label>Shaqsiga Magaciisa/Owner Name </label>
+      <div class="input-control text size4" data-role="input-control">
+          <%= f.text_field  :name,:placeholder => "Shaqsiga Magaciisa/Owner Name ",:required => true %>
+          <button class="btn-clear" tabindex="-1"></button>
+      </div>
+    </div> 
+    <div class="span4 ">    
+        <label>Taariikhda Dhalashda/Birth Date</label>
+       <div class="input-control text size4" data-role="input-control">
+            <%= f.date_select  :birth_date,{ start_year: 100.years.ago.year, end_year: Date.today.year-10, default: Date.today,:selected => Date.today.year - 10},:class=>"select" %>
+            <button class="btn-clear" tabindex="-1"></button>
+        </div>
+      </div>
+     <div class="span3"> 
+        <%= link_to_remove_association "Remove Shaqsiga", f,:class=>"medium button danger default " %>
+     </div>   
+</div>    
+<div class="row">
+    <div class="span5">
+      <%= f.label :nationality,'Jinsiyada/Nationality'  %>
+          <div class="input-control select size4">
+            <%= f.country_select :nationality, priority_countries: ["SO", "KE"],:selected => f.object.nationality%>
+        </div>
+    </div>
+<div class="span5">
+       <%= f.label :gender,'Lab/Dheddig/Gender '  %>
+        <div class="input-control select size2">
+        <%= f.select :gender, options_for_select([["Male", "Male"],["Female","Female"]],
+                  :selected => f.object.gender)  %>
+      </div>
+    </div>
 </div>
-  <%= link_to_remove_association "Remove Owner", f,:class=>"medium button danger default" %>
-  <%= f.label :nationality  %>
-  <div class="input-control select size4">
-  <%= f.select :nationality, options_for_select([["Somalia", "Somalia"],["USA","USA"],["Ethiopia", "Ethiopia"],["Kenya", "Kenya"],["Yemen", "Yemen"],["Saudi Arabia", "Saudi Arabia"],["Oman", "Oman"],["Qatar", "Qatar"]],
-            :selected => f.object.nationality) %>
-</div>
- <%= f.label :gender  %>
-  <div class="input-control select size4">
-  <%= f.select :gender, options_for_select([["Male", "Male"],["Female","Female"]],
-            :selected => f.object.gender)  %>
-</div>
-<%= f.label :phone  %>
+
+ <div class="row"> 
+  <div class="span5">
+   <%= f.label :email  %>
+    <div class="input-control text size4" data-role="input-control">
+        <%= f.email_field :email, :placeholder => "Enter Email"  %>
+        <button class="btn-clear" tabindex="-1"></button>
+    </div>
+  </div>
+  <div class="span5">
+  <%= f.label :phone  %>
   <div class="input-control text size4" data-role="input-control">
-       <%= f.text_field :phone, :placeholder => "Enter Your Phone Number"  %>
+       <%= f.text_field :phone, :placeholder => "Enter Phone Number"  %>
       <button class="btn-clear" tabindex="-1"></button>
   </div>
- <%= f.label :email  %>
-  <div class="input-control text size4" data-role="input-control">
-      <%= f.email_field :email, :placeholder => "Enter Your Email"  %>
-      <button class="btn-clear" tabindex="-1"></button>
   </div>
-  <%= f.label "National ID attachment"  %>
-<div class="file size8">
-  <table>
-    <tr>
-        <td>
-          <%= f.file_field :national_attachment %>
-        </td>  
-        <td>
-          <a href="<%=f.object.national_attachment.url(:large)%>" rel="hermitage">
-                 <%=f.template.image_tag(f.object.national_attachment.url(:thumb)) %>
-            </a>
-         </td>
-      </tr>
-     </table>        
 </div>
-<%= f.label :passport_attachment  %>
- <div class="file size8" data-role="input-control">
-  <table>
-    <tr>
-        <td>
-         <%= f.file_field :passport_attachment %>
-        </td>  
-        <td>
-          <a href="<%=f.object.passport_attachment.url(:large)%>" rel="hermitage">
-                <%=f.template.image_tag(f.object.passport_attachment.url(:thumb)) %>
-            </a>
-         </td>
-      </tr>
-     </table> 
- </div>
+
+<div class="row"> 
+  <div class="span5">
+    <%= f.label :national_id,'L.Qaranka/National ID'  %>
+  
+    <div class="input-control text size4" data-role="input-control">
+        <%= f.text_field :national_id, :placeholder => "L.Qaranka/National ID"  %>
+        <button class="btn-clear" tabindex="-1"></button>
+    </div>
+  </div>  
+  <div class="span5"> 
+    <%= f.label :national_id_expiry_date,'Taariikhda uu dhacayo/National ID Expiry Date'     %>
+      <div class="input-control text size4" data-role="input-control">
+          <%= f.date_select :national_id_expiry_date,{ start_year: Date.today.year-25,end_year: Date.today.year+25,selected:Date.today.year+1} %>
+      
+      </div>
+   </div>   
+</div> 
+
+<div class="row"> 
+  <div class="span4">
+      <%= f.label "National ID attachment",'L.Qaranka/National ID attachment'  %>
+    <div class="file size8">
+      <table>
+        <tr>
+            <td>
+              <%= f.file_field :national_attachment %>
+            </td>
+             <%  unless f.object.national_attachment.url(:thumb).include? "missing" %>  
+            <td>
+              <a href="<%=f.object.national_attachment.url(:retina)%>" rel="hermitage">
+                     <%=f.template.image_tag(f.object.national_attachment.url(:thumb)) %>
+                </a>
+             </td>
+             <% end %>
+          </tr>
+         </table>        
+    </div>
+    </div>
+  </div>  
+
+<div class="row"> 
+  <div class="span5"> 
+    <%= f.label :passport_number,'L.Baasaboorka/Passport Number'  %>
+      <div class="input-control text size4" data-role="input-control">
+          <%= f.text_field :passport_number, :placeholder => "L.Baasaboorka/Passport Number"  %>
+          <button class="btn-clear" tabindex="-1"></button>
+      </div>
+   </div>    
+     <div class="span5"> 
+       <%= f.label :passport_number_expiry_date,'Taariikhda uu dhacayo/Passport Expiry Date'  %>
+      <div class="input-control text size4" data-role="input-control">
+          <%= f.date_select :passport_number_expiry_date,{ start_year: Date.today.year-25,end_year: Date.today.year+25,selected:Date.today.year+1} %>
+        </div>
+    </div> 
+</div>
+
+<div class="row"> 
+   <div class="span4"> 
+    <%= f.label :passport_attachment,'L.Baasaboorka/Passport attachment '  %>
+     <div class="file size8" data-role="input-control">
+      <table>
+        <tr>
+            <td>
+             <%= f.file_field :passport_attachment %>
+            </td>  
+            <%  unless f.object.passport_attachment.url(:thumb).include? "missing" %>
+            <td>
+              <a href="<%=f.object.passport_attachment.url(:retina)%>" rel="hermitage">
+                    <%=f.template.image_tag(f.object.passport_attachment.url(:thumb)) %>
+                </a>
+             </td>
+            <% end %> 
+          </tr>
+         </table> 
+     </div> 
+  </div>   
    <br/>
-   <br/>                             
+   <br/>   
+   </div>                             
 <% end %>
 </div>
  

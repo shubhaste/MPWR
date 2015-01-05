@@ -19,6 +19,10 @@
                             <button class="btn-reveal" tabindex="-1"></button>
                         </div>
                         <%= f.submit "Log in",:class => "info large" %>
+                         <%- if devise_mapping.recoverable? %>
+
+                        <%= link_to "Forgot password?", new_password_path(resource_name), :class => 'info small ' %>
+                      <% end -%>
                       </fieldset>
                <% end %>
 

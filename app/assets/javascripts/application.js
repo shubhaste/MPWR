@@ -11,13 +11,14 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery-ui
+// require jquery-ui
 //= require hermitage
 //= require jquery_ujs
-//= require turbolinks
 //= require cocoon
 //  require bootstrap-sprockets
 //= require dataTables/jquery.dataTables
+//= require turbolinks
+//= require jquery.turbolinks
 //= require_tree .
 
 

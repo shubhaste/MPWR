@@ -1,16 +1,5 @@
-<%= form_for [@company, @certificate]  do |f| %>
- <% if @certificate.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@certificate.errors.count, "error") %> prohibited this certificate from being saved:</h2>
-
-      <ul>
-      <% @certificate.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<div class="nested-fields">
+<%= f.inputs do %>
 <fieldset>
 <table>
   <tr>
@@ -24,36 +13,38 @@
 </tr>
   <tr>
     <td>
- <label>Certficate Issue Date</label>     
+ <label>License Issue Date</label>     
 <div class="input-control   span6">
-   <%= f.date_select  :cert_issue_date  %>
+   <%= f.date_select  :cert_issue_date,{ start_year: Date.today.year-25, end_year: Date.today.year}  %>
 </div>
 </td>
 </tr>
   <tr>
     <td>
- <label>Certficate Effective Date</label>
+ <label>License Effective Date</label>
  <div class="input-control  span6">
-  <%= f.date_select  :cert_eff_date,:class=>"select" %>
+  <%= f.date_select  :cert_eff_date,{ start_year: Date.today.year, end_year: Date.today.year+1} %>
 </div>
 </td>
 </tr>
   <tr>
     <td>
- <label>Certficate Expire Date</label>
+ <label>License Expire Date</label>
 <div class="input-control  span6">
-<%= f.date_select  :cert_term_date,:class=>"select"  %>  
+<%= f.date_select  :cert_term_date,{ start_year: Date.today.year, end_year: Date.today.year+1,default: 1.years.from_now}    %>  
 </div>
 </td>
 </tr>
 <tr>
     <td>
 <br>
-<input name="commit" class="success default" type="submit" value="Update Certificate">
+<!--<input name="commit" class="success default" type="submit" value="Update Certificate">-->
 </td>
 </tr>
 </table>
 </fieldset>
+<% end %>
+</div>
 
  
-<% end %>
+

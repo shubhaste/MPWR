@@ -17,12 +17,16 @@
     <nav class="horizontal-menu compact text-right">
     <ul>   
     <% if user_signed_in? %>
-             <li>Welcome <%=User.current.email%>!</li>|
+             <li>Welcome <%=User.current.username%>!</li>|
      <% end %>             
         <li><a href="/">Home</a></li>|
             
             <% if user_signed_in? %>
-   
+             <li>
+           <%= link_to edit_user_registration_path, :class=>'element' do %>
+                Change Password
+            <% end %>
+            </li>|
              <li class="stick" data-no-turbolink><%= link_to 'Dashboard', companies_path%></li>|
               <li ><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
             <% else %>
@@ -39,6 +43,7 @@
     </div>  
     <div class="grid fluid">
       <main role="main">    
+          
         <%= yield %>
       </main>
     </div>

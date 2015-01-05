@@ -7,7 +7,8 @@ class Attachment < ActiveRecord::Base
       :thumb    => ['100x100#',  :jpg, :quality => 70],
       :preview  => ['480x480#',  :jpg, :quality => 70],
       :large    => ['600>',      :jpg, :quality => 70],
-      :retina   => ['1200>',     :jpg, :quality => 30]
+      :retina   => ['1200>',     :jpg, :quality => 30],
+      :pdf_thumbnail => ["", :jpg]
     },
     :convert_options => {
       :thumb    => '-set colorspace sRGB -strip',
@@ -19,6 +20,6 @@ class Attachment < ActiveRecord::Base
   validates_attachment :attachment,
     :presence => true,
     :size => { :in => 0..10.megabytes },
-    :content_type => { :content_type => /^image\/(jpeg|png|gif|tiff)$/ }
+    :content_type => { :content_type => [/^image\/(jpeg|png|gif|tiff)$/, 'application/pdf'] }
 
 end

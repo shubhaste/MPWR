@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
+  get 'attachment/pdf'
+
   resources :companies
 
   get 'home/index'
 
-  devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, :path => "users"
+ # devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, :path => "users"
+ devise_for :users, :controllers => { :registrations => 'registrations'},:path_names => {:sign_in => "login", :sign_out => "logout"}, :path => "users"
   #resources :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -67,15 +70,29 @@ Rails.application.routes.draw do
 resources :companies do
     resources :certificates do
        member do
-         # get :reject,:as => 'reject'
-         # get :accept,:as => 'accept'
-         # get :review,:as => 'review'
-        get :director_reject,:as => 'director_reject'
-        get :director_accept,:as => 'director_accept' 
-        get :minister_reject,:as => 'minister_reject'
-        get :minister_accept,:as => 'minister_accept' 
+        #post :director_reject,:as => 'director_reject'
+        #post :director_accept,:as => 'director_accept' 
+        #post :minister_reject,:as => 'minister_reject'
+        #post :minister_accept,:as => 'minister_accept'
+        #post :revoke,:as => 'revoke' 
+        #post :reinstate,:as => 'reinstate'
+        get :issue_license,:as => 'issue_license' 
+        get :ready_approval,:as => 'ready_approval' 
       end
     end
+    resources :attachments,:only => :pdf  do
+      member do
+        get :pdf,:as => 'pdf'
+      end  
+    end
+    resources :owners,:only => [:passport_pdf,:national_pdf]  do
+      member do
+        get :passport_pdf,:as => 'passport_pdf'
+        get :national_pdf,:as => 'national_pdf'
+      end  
+    end
   end
+
+  match '*a' => 'errors#routing' ,:via => [:get,:post,:delete,:patch,:post]
 
 end

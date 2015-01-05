@@ -5,17 +5,17 @@
 				<nav class="sidebar light">
     <ul>
         <li class="title">Admin Section</li>
-       <li class="stick" data-no-turbolink >
+        <li class="stick" data-no-turbolink >
         <%= link_to(companies_path) do %>
-          <i class="icon-arrow-left"></i>Back</a>
+          <i class="icon-arrow-left"></i>Dashboard</a>
          <% end %> 
        </li>
-        <li class="active">
+         <li class="stick">
          <%= link_to(new_company_path) do %>
-           <i class="icon-new"></i> New Application Form
+           <i class="icon-new"></i> Client Registration
           <% end %>
         </li>
-        <li class="stick"><a href="#"><i class="icon-home"></i>Client Registration</a></li>
+  
         <li class="stick"><a href="#"><i class="icon-newspaper"></i>Expired Certificates</a></li>
         <li class="stick"><a href="#"><i class="icon-enter"></i>Pending To Approve</a></li>
     <li class="stick"><a href="#"><i class="icon-printer"></i>Print Actions</a></li>

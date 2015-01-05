@@ -1,68 +1,169 @@
 <div class="row">
-<div class="span12 padding5">
-  <div class="span3">
-  <nav class="sidebar light">
-<ul>
-  <li class="title">Admin Section</li>
-  <li class="stick">
-   <%= link_to(new_company_path) do %>
-     <i class="icon-new"></i> New Application Form
-    <% end %>
-  </li>
-  <li class="stick"><a href="#"><i class="icon-home"></i>Client Registration</a></li>
-  <li class="stick"><a href="#"><i class="icon-newspaper"></i>Expired Certificates</a></li>
-  <li class="stick"><a href="#"><i class="icon-enter"></i>Pending To Approve</a></li>
-<li class="stick"><a href="#"><i class="icon-printer"></i>Print Actions</a></li>
-<li class="stick"><a href="#"><i class="icon-user-3"></i>Customers Lookup</a></li>
-</ul>
-</nav>
+  <div class="span12 ">
+  <nav class="navigation-bar compact">
+  <div class="navigation-bar-content">
+   <% if  current_user.has_role? :staff  %>   
+        <%= link_to new_company_path, :class=>'element' do %>
+         <i class="icon-new"></i> Client Registration
+        <% end %>  
+         <span class="element-divider"></span>
+    <% end %>       
+  <% if can? :manage, current_user %>
+     <%= link_to users_path, :class=>'element' do %>
+          <i class="icon-user-3"></i>Manage Users
+      <% end %>
+    <span class="element-divider"></span>
+   <% end %> 
+    <% if can? :manage, current_user %>
+           <%= link_to new_user_registration_path, :class=>'element' do %>
+                <i class="icon-user-3"></i>Add Users
+            <% end %>
+  <span class="element-divider"></span>
+    <% end %>  
+     <% if can? :manage, current_user %>
+           <%= link_to edit_user_registration_path, :class=>'element' do %>
+                <i class="icon-user-3"></i>Change Password
+            <% end %>
+   <% end %>  
+          
+      <span class="element-divider"></span>
+      <a href="#" class="element"><i class="icon-newspaper"></i>Expired Licenses</a>
+      <span class="element-divider"></span>
+      <a href="#" class="element"><i class="icon-enter"></i>Pending To Approve</a>
+      <span class="element-divider"></span>
+      <a href="#" class="element"><i class="icon-printer"></i>Print Actions</a>
+      <span class="element-divider"></span>
+      <a href="#" class="element"><i class="icon-user-3"></i>Customers Lookup</a>
+  </div>
+ </nav>
+  
 </div>
-  <div class="span9">
+<div class="row">
+  <div class="span12 padding10">
     <div class="panel">
         <div class="panel-content">
           <table id="products" class="display">
                 <thead>
                   <tr>
-                      <th class="text-left">Business Name</th>
-                      <th class="text-left">Address</th>
+                      <th class="text-left">Company Name </th>
+                      <th class="text-left">License Activity</th>
                       <th class="text-left">Status</th>
                       <th class="text-center">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   <%@companies.each do |company| %>  
+                    <% if !company.certificates.present? %>
                       <tr>
                           <td><%= company.name %></td>
-                          <td class="right"><%= company.address %></td>
-                          <td class="right">
-                           <% if company.certificates.first.present? %>
-                           <% if !company.certificates.first.workflow_state.nil? %>
-                               <%= company.certificates.first.workflow_state.gsub(/_/, " ") %>
-                               <% else %>
-                               License Does't not exist
-                            <% end %>
-                            <% else %>
-                               License Does't not exist
-                           <% end %>
-                          </td>
+                          <td class="right">&nbsp;</td>
+                          <td class="right">&nbsp;</td>
                           <td class="right" >
+                             <div class="row">
                             <% if can? :read, company %>
+                              <div class="span6">
                                <%= link_to(company) do %>
-                                  <button class="small info">View</button>
+                                  <button class="small info">View Business</button>
                                 <% end %>
+                               </div> 
                             <% end %>
                             <% if can? :update, company %>
+                              <div class="span6">
                                 <%= link_to(edit_company_path(company)) do %>
-                                  <button class="small default">Edit</button>
+                                  <button class="small default">Edit Business</button>
                                 <% end %>
+                              </div>
                               <% end %>
-                              
-                            <%= link_to(company_certificates_path(company)) do %>
+                             </div>
+                             <div class="row">  
+                            <%= link_to(new_company_certificate_path(company)) do %>
                               <%@clss = company.certificates.first.present? ? "small success" : "small warning"%>
-                              <button class= "<%=@clss%>" data-no-turbolink >License</button>
+                              <button class= "<%=@clss%>" data-no-turbolink >Add License</button>
                             <% end %>
-                          </td>
+                          </div>
+                        </td>
                       </tr>
+                    <% end %>  
+                    <% company.certificates.each do |certificate| %>  
+                      <tr>
+                          <td><%= company.name %></td>
+                          
+                          <td class="right"><%= certificate.description %>
+                        
+                            
+                            
+                          </td>
+                          
+                           
+                          
+                          <td class="right">
+                             <% if !certificate.workflow_state.nil? %>
+                                 <%= certificate.workflow_state.gsub(/_/, " ") %>
+                             <% end %>
+                          </td>
+                          <td class="right" >
+                            <!--<div class="row">
+                               <% if can? :read, company %>
+                                  <div class="span6">
+                                     <%= link_to(company) do %>
+                                        <button class="small info">View Business</button>
+                                      <% end %>
+                                    </div> 
+                                <% end %>
+
+                                <% if can? :update, company %>
+                                    <div class="span6">
+                                       <%= link_to(edit_company_path(company)) do %>
+                                        <button class="small default">Edit Business</button>
+                                      <% end %>
+                                    </div>  
+                                <% end %>
+                            </div>-->
+
+                            <div align="center">
+                                  <div class="span3">
+                                      <%= link_to(company_certificate_path(company,certificate)) do %>
+                                        <button class= "small success" data-no-turbolink >View</button>
+                                      <% end %>
+                                    </div> 
+                                  <% if !can? :manage, certificate and certificate.license_issued? and can? :issue, certificate %>
+                                    <div class="span4">
+                                       <%= link_to(company_certificate_path(company,certificate,:pdf )) do %>
+                                        <button class="small info">Download</button>
+                                      <% end %>
+                                    </div>  
+                                <% end %>
+
+                                  <% if !certificate.license_issued? and  (current_user.has_role? :staff)  and can? :update, company %>
+                                    <div class="span3">
+                                       <%= link_to(edit_company_path(company)) do %>
+                                        <button class="small default">Edit</button>
+                                      <% end %>
+                                    </div>  
+                                <% end %>
+                                <% if certificate.minister_has_accepted? or certificate.reinstated? %> 
+                                   <% if current_user.has_role? :staff and can? :issue, certificate %>
+                                        <div class="span3">
+                                            <%= link_to(issue_license_company_certificate_path(company,certificate)) do %>
+                                              <button class= "small success" data-disable-with="Processing."  data-no-turbolink >Issue</button>
+                                            <% end %>
+                                          </div> 
+                             <% end %>
+                                  <!--  <div class="span6">
+                                      <%= link_to(edit_company_certificate_path(company,certificate)) do %>
+                                        <button class="small default">Edit License</button>
+                                      <% end %>
+                                    </div>  -->
+                            </div>
+
+                     
+
+
+                                 <% end %> 
+                  </td>
+                </tr>
+                      <%end%>
+
                   <%end%>
                 </tbody>
               </table>
@@ -70,6 +171,6 @@
       </div>
   </div>
   </div>
-</div>
+
 
 
