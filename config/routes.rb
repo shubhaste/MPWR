@@ -63,7 +63,11 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-   root to: "home#index"
+  #get "customer_lookups/list_all" => "customer_lookups#list_all"
+  get "customer_lookups/list_all" => "customer_lookups#list_all"
+  get "customer_lookups/search" => "customer_lookups#search"
+  
+  root to: "home#index"
   
   resources :users
 
