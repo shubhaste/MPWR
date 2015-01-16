@@ -65,12 +65,12 @@
                 <tbody>
                   <%@data.each do |row| %>  
                       <tr>
-                          <td class="right"><%= row["CompanyId"] %></td>
-                          <td class="right"><%= row["OwnerName"] %></td>
-                          <td class="right"><%= row["CompanyName"] %></td>
-                          <td class="right"><%= row["CerDescription"] %></td>
-                          <td class="right"><%= row["CerStatus"] %></td>
-                          <td class="right"><%= row["CertLastActivity"] %></td>
+                          <td class="right"><%= row.company_id %></td>
+                          <td class="right"><%= row.name %></td>
+                          <td class="right"><%= row.company.name %></td>
+                          <td class="right"><%= row.company.certificates.last.description %></td>
+                          <td class="right"><%= row.company.certificates.last.license_issue_activities.last.status %></td>
+                          <td class="right"><%= row.company.certificates.last.license_issue_activities.last.updated_at %></td>
                       </tr>
                   <%end%>
                 </tbody>

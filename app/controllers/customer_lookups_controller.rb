@@ -9,13 +9,29 @@ class CustomerLookupsController < ApplicationController
 	end
 
 	def list_all
-		@data = search_by_query(params[:search_company_id], params[:search_owner_name], params[:search_company_name])
+		@data = search_by_sphinx(params[:search_company_id], params[:search_owner_name], params[:search_company_name])
 	    respond_to do |format|
 	      format.html
 	    end 
 	end
 
 	private
+
+	def search_by_sphinx(company_id, owner_name, company_name)
+		owners_results = results =  ids = []
+		company_by_id = ""
+		owners_results = Owner.search (owner_name) unless owner_name.blank?
+
+		companies_results = Company.search (company_name) unless company_name.blank?
+		ids = companies_results.map(&:id) unless company_name.blank?
+
+		company_by_id = Company.find(company_id).id unless company_id.blank?
+		companies_ids = ids + [company_by_id]
+		results = Owner.where(:company_id => companies_ids) unless companies_ids.blank?
+
+		final_results = owners_results + results.to_a
+	end
+
 
 	def search_by_query(company_id, owner_name, company_name)
 		if (company_id.blank?)

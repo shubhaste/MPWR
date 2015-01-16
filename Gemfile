@@ -77,3 +77,5 @@ gem 'country_select', git: 'https://github.com/alibabajan/country_select.git'
 gem 'jquery-turbolinks'
 
 gem 'rghost', '~> 0.9.5'
+
+gem 'thinking-sphinx', '~> 3.1.0'
