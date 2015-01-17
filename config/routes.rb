@@ -66,6 +66,7 @@ Rails.application.routes.draw do
   #get "customer_lookups/list_all" => "customer_lookups#list_all"
   get "customer_lookups/list_all" => "customer_lookups#list_all"
   get "customer_lookups/search" => "customer_lookups#search"
+  get "pending_approve/list_all" => "pending_approve#list_all"
   
   root to: "home#index"
   

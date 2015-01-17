@@ -29,7 +29,9 @@
         <span class="element-divider"></span>
         <a href="#" class="element"><i class="icon-newspaper"></i>Expired Licenses</a>
         <span class="element-divider"></span>
-        <a href="/pending_approve/list_all" class="element"><i class="icon-enter"></i>Pending To Approve</a>
+         <% if user_signed_in? %>
+        <a href="list_all" class="element"><i class="icon-enter"></i>Pending To Approve</a>
+        <% end %>
         <span class="element-divider"></span>
         <a href="#" class="element"><i class="icon-printer"></i>Print Actions</a>
         <span class="element-divider"></span>
@@ -38,17 +40,9 @@
     </nav>
 
   </div>
-<div style="padding-top: 78px;" align="center" >
-	<%= form_tag(customer_lookups_list_all_path, :method => "get", id: "search-form") do %>
-	  Company Id  <%= text_field_tag :search_company_id, params[:search_company_id], placeholder: "company_id"%>
-	  Owner Name  <%= text_field_tag :search_owner_name, params[:search_owner_name], placeholder: "owner_name"%>
-	  Company Name  <%= text_field_tag :search_company_name, params[:search_company_name], placeholder: "company_name"%>
-	  <%= submit_tag "Search", :name => nil %>
-	<% end %>
-</div>
 
   <div class="row">
-    <div class="span12 padding10">
+    <div class="span12 padding4">
       <div class="panel">
         <div class="panel-content">
           <table id="products" class="display">
@@ -65,12 +59,12 @@
                 <tbody>
                   <%@data.each do |row| %>  
                       <tr>
-                          <td class="right"><%= row.company_id %></td>
-                          <td class="right"><%= row.name %></td>
-                          <td class="right"><%= row.company.name %></td>
-                          <td class="right"><%= row.company.certificates.last.description %></td>
-                          <td class="right"><%= row.company.certificates.last.license_issue_activities.last.status %></td>
-                          <td class="right"><%= row.company.certificates.last.license_issue_activities.last.updated_at %></td>
+                          <td class="right"><%= row["CompanyId"] %></td>
+                          <td class="right"><%= row["OwnerName"] %></td>
+                          <td class="right"><%= row["CompanyName"] %></td>
+                          <td class="right"><%= row["CerDescription"] %></td>
+                          <td class="right"><%= row["CerStatus"] %></td>
+                          <td class="right"><%= row["CertLastActivity"] %></td>
                       </tr>
                   <%end%>
                 </tbody>
