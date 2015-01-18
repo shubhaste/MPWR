@@ -2,7 +2,7 @@
   <div class="span12 ">
     <nav class="navigation-bar compact">
       <div class="navigation-bar-content">
-        <% if  current_user.has_role? :staff  %>
+        <% if  current_user && current_user.has_role?("staff") %>
             <%= link_to new_company_path, :class=>'element' do %>
                 <i class="icon-new"></i> Client Registration
             <% end %>
