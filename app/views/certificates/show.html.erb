@@ -125,9 +125,9 @@
 
                      <% if !(current_user.has_role? :admin or current_user.has_role? :super_admin) %>
 
-                       <% if (current_user.has_role? :director and @certificate.awaiting_for_director_approval?) or (current_user.has_role? :minister and  @certificate.awaiting_for_minister_approval?) or (current_user.has_role? :staff and @certificate.minister_has_accepted?)   or (current_user.has_role? :staff and @certificate.revoked?) or 
-                         (current_user.has_role? :staff and @certificate.license_issued?) or
-                         (current_user.has_role? :staff and @certificate.reinstated?) %> 
+                       <% if (current_user.has_role? :director and @certificate.awaiting_for_director_approval?) or (current_user.has_role? :minister and  @certificate.awaiting_for_minister_approval?) or (current_user.has_role? :minister and @certificate.minister_has_accepted?)   or (current_user.has_role? :minister and @certificate.revoked?) or 
+                         (current_user.has_role? :minister and @certificate.license_issued?) or
+                         (current_user.has_role? :minister and @certificate.reinstated?) %> 
                      <tr>
                       <td class="text-left">
                       Remarks:
@@ -170,7 +170,7 @@
                           </tr> 
                   <% end %>
 
-                        <% if (@certificate.minister_has_accepted? or @certificate.reinstated? or @certificate.license_issued? ) and current_user.has_role? :staff %> 
+                        <% if (@certificate.minister_has_accepted? or @certificate.reinstated? or @certificate.license_issued? ) and current_user.has_role? :minister %> 
                         <tr>
                            <td class="right">
                              <input name="commit_revoke" data-disable-with="Processing." class="small danger" type="submit" value="Revoke License">
@@ -178,7 +178,7 @@
                       
                           </tr> 
                        <% end %>
-                    <% if @certificate.revoked? and current_user.has_role? :staff  %> 
+                    <% if @certificate.revoked? and current_user.has_role? :minister  %> 
                          <tr>
                            <td class="right">
                              <input name="commit_reinstate" data-disable-with="Processing." class="small danger" type="submit" value="Reinstate License">

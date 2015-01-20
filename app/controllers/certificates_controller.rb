@@ -18,7 +18,7 @@ class CertificatesController < ApplicationController
       img = "#{Rails.root}/app/assets/images/certificate.png"
       pdf = Prawn::Document.new(background: img, :page_size => [631,868], :margin => 0.5, :page_layout => :landscape)
       pdf.font "Times-Roman"
-      pdf.draw_text @certificate.id, :at => [200,368], :size => 20
+      pdf.draw_text @certificate.license_issue_code, :at => [200,368], :size => 20
       pdf.draw_text @company.name, :at => [200,329], :size => 20
       pdf.draw_text @certificate.description, :at => [200,305], :size => 20
       pdf.draw_text @certificate.cert_issue_date.to_date.strftime('%v'), :at => [140,280], :size => 20

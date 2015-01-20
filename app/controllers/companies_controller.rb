@@ -60,6 +60,8 @@ class CompaniesController < ApplicationController
     respond_to do |format|
       if @company.save
         @company.certificates.first.submit!
+        @company.certificates.first.license_issue_code = "WHG#{@company.certificates.first.id}"
+        @company.certificates.first.save
         #format.html { redirect_to(@company, :notice => 'Project was successfully created.') }
         format.html { redirect_to(company_certificate_path(@company,@company.certificates.first), :notice => 'Certficate was successfully created.') }
         format.xml  { render :xml => @company, :status => :created, :location => @company }
