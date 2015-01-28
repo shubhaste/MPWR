@@ -9,4 +9,5 @@ class Company < ActiveRecord::Base
 	accepts_nested_attributes_for :attachments, :allow_destroy => true
 	has_many :certificates, :dependent => :destroy
 	accepts_nested_attributes_for :certificates, :allow_destroy => true
+	after_save ThinkingSphinx::RealTime.callback_for(:company)
 end

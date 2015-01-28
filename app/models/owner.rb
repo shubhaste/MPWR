@@ -5,6 +5,8 @@ class Owner < ActiveRecord::Base
 	#has_one :national_proof, :dependent => :destroy
 	#accepts_nested_attributes_for :passport_proof, :allow_destroy => true
 	#accepts_nested_attributes_for :national_proof, :allow_destroy => true
+  after_save ThinkingSphinx::RealTime.callback_for(:owner)
+
 	has_attached_file :passport_attachment, 
     :path => ":rails_root/public/system/:class/passport/:id/:basename_:style.:extension",
     :url => "/system/:class/passport/:id/:basename_:style.:extension",
